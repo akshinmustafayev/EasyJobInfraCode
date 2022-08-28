@@ -1,0 +1,14 @@
+﻿Name: Automation Workflow 1
+Description: Some automation workflow yaml file
+Author: Akshin Mustafayev
+Url: https://akshinmustafayev.com
+Version: 1.0
+Copyrigth: Akshin Mustafayev
+Variables: [ "var1", "var2" ]
+Steps:
+  - ActionType: DeleteFolder
+    ActionName: deletefolder1
+    ActionDescription: Deletes the specified folder
+    FolderName: D:\asdasdasdasd
+
+

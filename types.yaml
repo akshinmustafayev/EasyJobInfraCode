@@ -1,0 +1,107 @@
+﻿Name: AutomationWorkflow1
+Description: Some automation workflow yaml file
+Author: Akshin Mustafayev
+Url: https://akshinmustafayev.com
+Version: 1.0
+Copyrigth: Akshin Mustafayev
+Steps:
+  - ActionType: CopyFile
+    ActionName: copyFile1to2
+    ActionDescription: Copies file 1 to 2
+    FileSource: D:\1.txt
+    FileDestination: D:\2.txt
+    Overwrite: true
+
+  - ActionType: CreateFile
+    ActionName: createFile1
+    ActionDescription: Creates a file with specified content
+    FileName: D:\new_file.txt
+    FileContents: "some content \n
+    sdfsdfsdfsdfsdfsdfsdf \n
+    sdfsdfsdgfdsfgfdgsfdgdsfgsfdgdsfg"
+    FileEncoding: ASCII
+
+  - ActionType: MoveFile
+    ActionName: moveFile
+    ActionDescription: Moves file from one place to another
+    FileSource: D:\1.txt
+    FileDestination: D:\2.txt
+    Overwrite: true
+
+  - ActionType: RenameFile
+    ActionName: renameFile
+    ActionDescription: Renames file
+    FileName: D:\1.txt
+    NewFileName: D:\2.txt
+    Overwrite: true
+
+  - ActionType: DeleteFile
+    ActionName: deleteFile
+    ActionDescription: Deletes file 2
+    FileName: D:\2.txt
+
+  - ActionType: DeleteFolder
+    ActionName: deletefolder1
+    ActionDescription: Deletes the specified folder
+    FolderName: D:\somefolder1
+
+  - ActionType: CreateFolder
+    ActionName: createFolder1
+    ActionDescription: Creates folder
+    FolderName: D:\somefolder1
+
+  - ActionType: CopyFolder
+    ActionName: copyFolder1
+    ActionDescription: Copies folder
+    FolderSource: D:\somefolder1
+    FolderDestination: D:\somefolder2
+    Overwrite: true
+
+  - ActionType: MoveFolder
+    ActionName: moveFolder1
+    ActionDescription: Moves folder
+    FolderSource: D:\somefolder1
+    FolderDestination: D:\somefolder2
+
+  - ActionType: RenameFolder
+    ActionName: renameFolder1
+    ActionDescription: Renames folder
+    FolderName: D:\somefolder1
+    NewFolderName: D:\somefolder2
+
+  - ActionType: Wait
+    ActionName: wait1
+    ActionDescription: Waits for the operation complete
+    Milliseconds: 5000
+
+  - ActionType: InvokePowerShellScriptFile
+    ActionName: runMyPsScriptFile1
+    ActionDescription: Executes specified powershell script
+    FileName: D:\1.ps1
+    FileArguments: [ "some argument 1", "some argument 2" ]
+    PowerShellArguments: -NoLogo
+    WorkingDirectory: C:\Windows\System32
+    PowerShellExecutable: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+
+  - ActionType: InvokePowerShellScript
+    ActionName: runMyScript1
+    ActionDescription: Executes specified powershell code
+    Script: |
+        $arg1 = $args[0]
+        $arg2 = $args[1]
+        "" | out-file -Force -FilePath "D:\bbbb.txt"
+        "Begin file" | out-file -Force -FilePath "D:\bbbb.txt" -Append
+        "new line arg1 $arg1  " | out-file -Force -FilePath "D:\bbbb.txt" -Append
+        "new line arg2 $arg2  " | out-file -Force -FilePath "D:\bbbb.txt" -Append
+    ScriptArguments: [ "b argument 1", "b argument 2" ]
+    PowerShellArguments: -NoLogo
+    WorkingDirectory: C:\Windows\System32
+    PowerShellExecutable: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+
+  - ActionType: CleanFolderContents
+    ActionName: cleanFolderContents1
+    ActionDescription: Cleans all files and folders in directory
+    FolderName: D:\somefolder1
+
+
+
