@@ -4,11 +4,24 @@ Author: Akshin Mustafayev
 Url: https://akshinmustafayev.com
 Version: 1.0
 Copyrigth: Akshin Mustafayev
-Variables: [ "var1", "var2" ]
+Variables: [ "$var1", "$var2" ]
 Steps:
-  - ActionType: DeleteFolder
-    ActionName: deletefolder1
-    ActionDescription: Deletes the specified folder
-    FolderName: D:\asdasdasdasd
+  - ActionType: ReadFile
+    ActionName: readFile1
+    ActionDescription: Reads file contents
+    FileName: D:\1.txt
+    SetToVariables: [ "$var1" ]
 
+  - ActionType: ReadFile
+    ActionName: readFile1
+    ActionDescription: Reads file contents
+    FileName: D:\2.txt
+    SetToVariables: [ "$var2" ]
 
+  - ActionType: CreateFile
+    ActionName: createFile1
+    ActionDescription: Creates a file with specified content
+    FileName: D:\new_file.txt
+    FileContents: $var1$var2
+    FileEncoding: ASCII
+    ExactVariableCheck: false

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using CliWrap;
 using EasyJobInfraCode.Core.Argprocessor;
+using EasyJobInfraCode.Core.Preprocessor.Utils;
 using EasyJobInfraCode.Core.Types;
 
 namespace EasyJobInfraCode.Core.Preprocessor.Actions
@@ -27,7 +28,7 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
 
                 if (ScriptArguments.Count > 0)
                 {
-                    scriptArgumentsData = GetScriptArgumentsData();
+                    scriptArgumentsData = ListUtil.ConvertListToString(ScriptArguments);
 
                     if (!Directory.Exists(Constants.APP_TEMP_PATH))
                         Directory.CreateDirectory(Constants.APP_TEMP_PATH);
@@ -58,23 +59,7 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
             catch (Exception ex) { Console.WriteLine(ex.Message); }
         }
 
-        public string GetScriptArgumentsData()
-        {
-            string argumentsData = "";
-
-            if (ScriptArguments.Count > 0)
-            {
-                for (int i = 0; i < ScriptArguments.Count; i += 1)
-                {
-                    if (i == ScriptArguments.Count - 1)
-                        argumentsData = argumentsData + "\"" + ScriptArguments[i].ToString() + "\"";
-                    else
-                        argumentsData = argumentsData + "\"" + ScriptArguments[i].ToString() + "\" ";
-                }
-            }
-
-            return argumentsData;
-        }
+        
 
         public static string Base64Encode(string plainText)
         {

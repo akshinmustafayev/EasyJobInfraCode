@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using EasyJobInfraCode.Core.Argprocessor;
 
 namespace EasyJobInfraCode.Core.Varprocessor
 {
     public class VariableProcessor
     {
-        public static Dictionary<string, string> Variables { get; set; } = new Dictionary<string, string> { };
+        public Dictionary<string, string> Variables { get; set; }
 
         public VariableProcessor()
         {
-            
+            Variables = new Dictionary<string, string> { };
         }
 
         public string GetVariableValue(string variableName)
@@ -37,11 +36,18 @@ namespace EasyJobInfraCode.Core.Varprocessor
             }
             else
             {
-                Variables.Add(variableName, "");
+                if (variableName.StartsWith("$"))
+                {
+                    Variables.Add(variableName, "");
+                }
+                else
+                {
+                    ExecutionUtils.ExecutionOptionVerbose("Specified value is not a variable. Variable must start with $ character. Example: $someVar1");
+                }
             }
         }
 
-        public void InitVariable(List<object> variables)
+        public void InitVariables(List<object> variables)
         {
             if (variables.Count == 0)
                 return;
@@ -58,6 +64,29 @@ namespace EasyJobInfraCode.Core.Varprocessor
             {
                 Variables[variableName] = variableValue;
             }
+        }
+
+        public string SetValuesFromVariables(string text, bool exactVariableCheck)
+        {
+            foreach (KeyValuePair<string, string> variable in Variables)
+            {
+                if (exactVariableCheck)
+                {
+                    if (text.Split().Contains(variable.Key))
+                    {
+                        text = text.Replace(variable.Key, variable.Value);
+                    }
+                }
+                else
+                {
+                    if (text.Contains(variable.Key))
+                    {
+                        text = text.Replace(variable.Key, variable.Value);
+                    }
+                }
+            }
+
+            return text;
         }
     }
 }

@@ -4,6 +4,7 @@ Author: Akshin Mustafayev
 Url: https://akshinmustafayev.com
 Version: 1.0
 Copyrigth: Akshin Mustafayev
+Variables: [ "$var1", "$var2" ]
 Steps:
   - ActionType: CopyFile
     ActionName: copyFile1to2
@@ -18,8 +19,9 @@ Steps:
     FileName: D:\new_file.txt
     FileContents: "some content \n
     sdfsdfsdfsdfsdfsdfsdf \n
-    sdfsdfsdgfdsfgfdgsfdgdsfgsfdgdsfg"
+    sdfsdfsdgfdsfgfdgsfdgdsfgsfdgdsfg $var1"
     FileEncoding: ASCII
+    ExactVariableCheck: false
 
   - ActionType: MoveFile
     ActionName: moveFile
@@ -103,5 +105,9 @@ Steps:
     ActionDescription: Cleans all files and folders in directory
     FolderName: D:\somefolder1
 
-
+  - ActionType: ReadFile
+    ActionName: readFile1
+    ActionDescription: Reads file contents
+    FileName: D:\1.txt
+    SetToVariables: [ "$var1", "$var2" ]
 

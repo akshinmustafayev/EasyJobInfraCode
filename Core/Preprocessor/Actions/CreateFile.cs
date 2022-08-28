@@ -14,23 +14,21 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
         public string FileName { get; set; }
         public string FileContents { get; set; }
         public string FileEncoding { get; set; } = "ASCII";
+        public string ExactVariableCheck { get; set; } = "false";
 
         public void InvokeAction()
         {
             try
             {
-                byte[] fileContentsBytes = null; 
+                byte[] fileContentsBytes = null;
+
+                FileContents = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(FileContents, bool.Parse(ExactVariableCheck));
 
                 switch (FileEncoding)
                 {
                     case "UTF8":
                         {
                             fileContentsBytes = Encoding.UTF8.GetBytes(FileContents);
-                        }
-                        break;
-                    case "UTF7":
-                        {
-                            fileContentsBytes = Encoding.UTF7.GetBytes(FileContents);
                         }
                         break;
                     case "UTF32":
@@ -55,7 +53,7 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
                         break;
                     default:
                         {
-                            fileContentsBytes = Encoding.ASCII.GetBytes(FileContents);
+                            fileContentsBytes = Encoding.UTF8.GetBytes(FileContents);
                         }
                         break;
                 }

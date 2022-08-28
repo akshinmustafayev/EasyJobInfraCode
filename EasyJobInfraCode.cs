@@ -8,6 +8,7 @@ using EasyJobInfraCode.Core.Preprocessor;
 using EasyJobInfraCode.Core.Preprocessor.Actions;
 using System.Collections.Generic;
 using EasyJobInfraCode.Core.Varprocessor;
+using EasyJobInfraCode.Core.Preprocessor.Utils;
 
 namespace EasyJobInfraCode
 {
@@ -42,7 +43,7 @@ namespace EasyJobInfraCode
             string yamlFileContents = File.ReadAllText(executionOptions.File);
             var yamlDeserializer = new DeserializerBuilder().Build();
             YamlWorkflow yamlWorkflow = yamlDeserializer.Deserialize<YamlWorkflow>(yamlFileContents);
-            VariableProcessorInstance.InitVariable(yamlWorkflow.Variables);
+            VariableProcessorInstance.InitVariables(yamlWorkflow.Variables);
 
             if (executionOptions.Verbose == true)
             {
@@ -53,7 +54,8 @@ namespace EasyJobInfraCode
                     "\tAuthor: " + yamlWorkflow.Author + "\n" +
                     "\tUrl: " + yamlWorkflow.Url + "\n" +
                     "\tVersion: " + yamlWorkflow.Version + "\n" +
-                    "\tCopyrigth: " + yamlWorkflow.Copyrigth + "\n\n");
+                    "\tCopyrigth: " + yamlWorkflow.Copyrigth + "\n" +
+                    "\tVariables: " + ListUtil.ConvertListToString(yamlWorkflow.Variables, "\"", ", ") + "\n\n");
                 Console.WriteLine("################### Steps! ####################\n");
                 VerboseEnabled = true;
             }
@@ -79,7 +81,7 @@ namespace EasyJobInfraCode
                             {
                                 CopyFile copyFile = Step.ToObject<CopyFile>();
 
-                                ExecutionUtils.ExecutionOptionVerbose($"CopyFile step data from yaml: " +
+                                ExecutionUtils.ExecutionOptionVerbose($"\nCopyFile step data from yaml: " +
                                     $"\n\tActionType: {copyFile.ActionType}" +
                                     $"\n\tActionName: {copyFile.ActionName}" +
                                     $"\n\tActionDescription: {copyFile.ActionDescription}" +
@@ -94,7 +96,7 @@ namespace EasyJobInfraCode
                             {
                                 MoveFile moveFile = Step.ToObject<MoveFile>();
 
-                                ExecutionUtils.ExecutionOptionVerbose($"MoveFile step data from yaml: " +
+                                ExecutionUtils.ExecutionOptionVerbose($"\nMoveFile step data from yaml: " +
                                     $"\n\tActionType: {moveFile.ActionType}" +
                                     $"\n\tActionName: {moveFile.ActionName}" +
                                     $"\n\tActionDescription: {moveFile.ActionDescription}" +
@@ -109,7 +111,7 @@ namespace EasyJobInfraCode
                             {
                                 RenameFile renameFile = Step.ToObject<RenameFile>();
 
-                                ExecutionUtils.ExecutionOptionVerbose($"RenameFile step data from yaml: " +
+                                ExecutionUtils.ExecutionOptionVerbose($"\nRenameFile step data from yaml: " +
                                     $"\n\tActionType: {renameFile.ActionType}" +
                                     $"\n\tActionName: {renameFile.ActionName}" +
                                     $"\n\tActionDescription: {renameFile.ActionDescription}" +
@@ -124,13 +126,14 @@ namespace EasyJobInfraCode
                             {
                                 CreateFile createFile = Step.ToObject<CreateFile>();
 
-                                ExecutionUtils.ExecutionOptionVerbose($"CreateFile step data from yaml: " +
+                                ExecutionUtils.ExecutionOptionVerbose($"\nCreateFile step data from yaml: " +
                                     $"\n\tActionType: {createFile.ActionType}" +
                                     $"\n\tActionName: {createFile.ActionName}" +
                                     $"\n\tActionDescription: {createFile.ActionDescription}" +
                                     $"\n\tFileName: {createFile.FileName}" +
                                     $"\n\tFileContents: {createFile.FileContents}" +
-                                    $"\n\tFileEncoding: {createFile.FileEncoding}");
+                                    $"\n\tFileEncoding: {createFile.FileEncoding}" +
+                                    $"\n\tExactVariableCheck: {createFile.ExactVariableCheck}");
 
                                 createFile.InvokeAction();
                             }
@@ -139,7 +142,7 @@ namespace EasyJobInfraCode
                             {
                                 DeleteFile deleteFile = Step.ToObject<DeleteFile>();
 
-                                ExecutionUtils.ExecutionOptionVerbose($"DeleteFile step data from yaml: " +
+                                ExecutionUtils.ExecutionOptionVerbose($"\nDeleteFile step data from yaml: " +
                                     $"\n\tActionType: {deleteFile.ActionType}" +
                                     $"\n\tActionName: {deleteFile.ActionName}" +
                                     $"\n\tActionDescription: {deleteFile.ActionDescription}" +
@@ -152,7 +155,7 @@ namespace EasyJobInfraCode
                             {
                                 CreateFolder createFolder = Step.ToObject<CreateFolder>();
 
-                                ExecutionUtils.ExecutionOptionVerbose($"CreateFolder step data from yaml: " +
+                                ExecutionUtils.ExecutionOptionVerbose($"\nCreateFolder step data from yaml: " +
                                     $"\n\tActionType: {createFolder.ActionType}" +
                                     $"\n\tActionName: {createFolder.ActionName}" +
                                     $"\n\tActionDescription: {createFolder.ActionDescription}" +
@@ -165,7 +168,7 @@ namespace EasyJobInfraCode
                             {
                                 DeleteFolder deleteFolder = Step.ToObject<DeleteFolder>();
 
-                                ExecutionUtils.ExecutionOptionVerbose($"DeleteFolder step data from yaml: " +
+                                ExecutionUtils.ExecutionOptionVerbose($"\nDeleteFolder step data from yaml: " +
                                     $"\n\tActionType: {deleteFolder.ActionType}" +
                                     $"\n\tActionName: {deleteFolder.ActionName}" +
                                     $"\n\tActionDescription: {deleteFolder.ActionDescription}" +
@@ -178,7 +181,7 @@ namespace EasyJobInfraCode
                             {
                                 CopyFolder copyFolder = Step.ToObject<CopyFolder>();
 
-                                ExecutionUtils.ExecutionOptionVerbose($"CopyFolder step data from yaml: " +
+                                ExecutionUtils.ExecutionOptionVerbose($"\nCopyFolder step data from yaml: " +
                                     $"\n\tActionType: {copyFolder.ActionType}" +
                                     $"\n\tActionName: {copyFolder.ActionName}" +
                                     $"\n\tActionDescription: {copyFolder.ActionDescription}" +
@@ -193,7 +196,7 @@ namespace EasyJobInfraCode
                             {
                                 MoveFolder moveFolder = Step.ToObject<MoveFolder>();
 
-                                ExecutionUtils.ExecutionOptionVerbose($"MoveFolder step data from yaml: " +
+                                ExecutionUtils.ExecutionOptionVerbose($"\nMoveFolder step data from yaml: " +
                                     $"\n\tActionType: {moveFolder.ActionType}" +
                                     $"\n\tActionName: {moveFolder.ActionName}" +
                                     $"\n\tActionDescription: {moveFolder.ActionDescription}" +
@@ -207,7 +210,7 @@ namespace EasyJobInfraCode
                             {
                                 RenameFolder renameFolder = Step.ToObject<RenameFolder>();
 
-                                ExecutionUtils.ExecutionOptionVerbose($"RenameFolder step data from yaml: " +
+                                ExecutionUtils.ExecutionOptionVerbose($"\nRenameFolder step data from yaml: " +
                                     $"\n\tActionType: {renameFolder.ActionType}" +
                                     $"\n\tActionName: {renameFolder.ActionName}" +
                                     $"\n\tActionDescription: {renameFolder.ActionDescription}" +
@@ -221,7 +224,7 @@ namespace EasyJobInfraCode
                             {
                                 Wait wait = Step.ToObject<Wait>();
 
-                                ExecutionUtils.ExecutionOptionVerbose($"Wait step data from yaml: " +
+                                ExecutionUtils.ExecutionOptionVerbose($"\nWait step data from yaml: " +
                                     $"\n\tActionType: {wait.ActionType}" +
                                     $"\n\tActionName: {wait.ActionName}" +
                                     $"\n\tActionDescription: {wait.ActionDescription}" +
@@ -234,12 +237,12 @@ namespace EasyJobInfraCode
                             {
                                 InvokePowerShellScriptFile invokePowerShellScriptFile = Step.ToObject<InvokePowerShellScriptFile>();
 
-                                ExecutionUtils.ExecutionOptionVerbose($"InvokePowerShellScriptFile step data from yaml: " +
+                                ExecutionUtils.ExecutionOptionVerbose($"\nInvokePowerShellScriptFile step data from yaml: " +
                                     $"\n\tActionType: {invokePowerShellScriptFile.ActionType}" +
                                     $"\n\tActionName: {invokePowerShellScriptFile.ActionName}" +
                                     $"\n\tActionDescription: {invokePowerShellScriptFile.ActionDescription}" +
                                     $"\n\tFileName: {invokePowerShellScriptFile.FileName}" +
-                                    $"\n\tFileArguments: {invokePowerShellScriptFile.GetFileArgumentsData()}" +
+                                    $"\n\tFileArguments: {ListUtil.ConvertListToString(invokePowerShellScriptFile.FileArguments)}" +
                                     $"\n\tPowerShellArguments: {invokePowerShellScriptFile.PowerShellArguments}" +
                                     $"\n\tWorkingDirectory: {invokePowerShellScriptFile.WorkingDirectory}" +
                                     $"\n\tPowerShellExecutable: {invokePowerShellScriptFile.PowerShellExecutable}");
@@ -251,12 +254,12 @@ namespace EasyJobInfraCode
                             {
                                 InvokePowerShellScript invokePowerShellScript = Step.ToObject<InvokePowerShellScript>();
 
-                                ExecutionUtils.ExecutionOptionVerbose($"InvokePowerShellScript step data from yaml: " +
+                                ExecutionUtils.ExecutionOptionVerbose($"\nInvokePowerShellScript step data from yaml: " +
                                     $"\n\tActionType: {invokePowerShellScript.ActionType}" +
                                     $"\n\tActionName: {invokePowerShellScript.ActionName}" +
                                     $"\n\tActionDescription: {invokePowerShellScript.ActionDescription}" +
                                     $"\n\tScript: {invokePowerShellScript.Script}" +
-                                    $"\n\tScriptArguments: {invokePowerShellScript.GetScriptArgumentsData()}" +
+                                    $"\n\tScriptArguments: {ListUtil.ConvertListToString(invokePowerShellScript.ScriptArguments)}" +
                                     $"\n\tPowerShellArguments: {invokePowerShellScript.PowerShellArguments}" +
                                     $"\n\tWorkingDirectory: {invokePowerShellScript.WorkingDirectory}" +
                                     $"\n\tPowerShellExecutable: {invokePowerShellScript.PowerShellExecutable}");
@@ -268,13 +271,27 @@ namespace EasyJobInfraCode
                             {
                                 CleanFolderContents cleanFolderContents = Step.ToObject<CleanFolderContents>();
 
-                                ExecutionUtils.ExecutionOptionVerbose($"CleanFolderContents step data from yaml: " +
+                                ExecutionUtils.ExecutionOptionVerbose($"\nCleanFolderContents step data from yaml: " +
                                     $"\n\tActionType: {cleanFolderContents.ActionType}" +
                                     $"\n\tActionName: {cleanFolderContents.ActionName}" +
                                     $"\n\tActionDescription: {cleanFolderContents.ActionDescription}" +
                                     $"\n\tFolderName: {cleanFolderContents.FolderName}");
 
                                 cleanFolderContents.InvokeAction();
+                            }
+                            break;
+                        case "ReadFile":
+                            {
+                                ReadFile readFile = Step.ToObject<ReadFile>();
+
+                                ExecutionUtils.ExecutionOptionVerbose($"\nReadFile step data from yaml: " +
+                                    $"\n\tActionType: {readFile.ActionType}" +
+                                    $"\n\tActionName: {readFile.ActionName}" +
+                                    $"\n\tActionDescription: {readFile.ActionDescription}" +
+                                    $"\n\tFileName: {readFile.FileName}" +
+                                    $"\n\tSetToVariables: { ListUtil.ConvertListToString(readFile.SetToVariables, "\"", ", ") }");
+
+                                readFile.InvokeAction();
                             }
                             break;
                     }

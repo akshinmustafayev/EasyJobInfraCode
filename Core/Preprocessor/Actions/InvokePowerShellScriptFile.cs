@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CliWrap;
 using EasyJobInfraCode.Core.Argprocessor;
+using EasyJobInfraCode.Core.Preprocessor.Utils;
 using EasyJobInfraCode.Core.Types;
 
 namespace EasyJobInfraCode.Core.Preprocessor.Actions
@@ -21,7 +22,7 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
         {
             try
             {
-                string fileArgumentsData = GetFileArgumentsData();
+                string fileArgumentsData = ListUtil.ConvertListToString(FileArguments);
 
                 ExecutionUtils.ExecutionOptionVerbose("Starting: \"" + PowerShellExecutable + "\" " + PowerShellArguments + " -File \"" + FileName + "\" " + fileArgumentsData + "\n");
 
@@ -32,24 +33,6 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
                     .ExecuteAsync();
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
-        }
-
-        public string GetFileArgumentsData()
-        {
-            string argumentsData = "";
-
-            if(FileArguments.Count > 0)
-            {
-                for (int i = 0; i < FileArguments.Count; i += 1)
-                {
-                    if (i == FileArguments.Count - 1)
-                        argumentsData = argumentsData + "\"" + FileArguments[i].ToString() + "\"";
-                    else
-                        argumentsData = argumentsData + "\"" + FileArguments[i].ToString() + "\" ";
-                }
-            }
-
-            return argumentsData;
         }
     }
 }
