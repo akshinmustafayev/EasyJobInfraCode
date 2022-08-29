@@ -294,6 +294,20 @@ namespace EasyJobInfraCode
                                 readFile.InvokeAction();
                             }
                             break;
+                        case "SetVariableValue":
+                            {
+                                SetVariableValue setVariableValue = Step.ToObject<SetVariableValue>();
+
+                                ExecutionUtils.ExecutionOptionVerbose($"\nSetVariableValue step data from yaml: " +
+                                    $"\n\tActionType: {setVariableValue.ActionType}" +
+                                    $"\n\tActionName: {setVariableValue.ActionName}" +
+                                    $"\n\tActionDescription: {setVariableValue.ActionDescription}" +
+                                    $"\n\tVariables: {ListUtil.ConvertListToString(setVariableValue.Variables)}" +
+                                    $"\n\tValue: {setVariableValue.Value}");
+
+                                setVariableValue.InvokeAction();
+                            }
+                            break;
                     }
                 }
             }

@@ -30,7 +30,7 @@ namespace EasyJobInfraCode.Core.Varprocessor
         {
             if (Variables.ContainsKey(variableName))
             {
-                Console.WriteLine("Specified variable already exists. Please choose another name.");
+                Console.WriteLine("Variable \"" + variableName + "\" already exists. Please choose another name for the second variable.");
                 Environment.Exit(0);
                 return;
             }
@@ -60,9 +60,16 @@ namespace EasyJobInfraCode.Core.Varprocessor
 
         public void SetVariableValue(string variableName, string variableValue)
         {
-            if (Variables.ContainsKey(variableName))
+            if (variableName.StartsWith("$"))
             {
-                Variables[variableName] = variableValue;
+                if (Variables.ContainsKey(variableName))
+                {
+                    Variables[variableName] = variableValue;
+                }
+            }
+            else
+            {
+                ExecutionUtils.ExecutionOptionVerbose("Specified value is not a variable. Variable must start with $ character. Example: $someVar1");
             }
         }
 
