@@ -67,7 +67,7 @@ Steps:
 
   - ActionType: ReadFile
     ActionName: readFile1
-    ActionDescription: Reads file contents
+    ActionDescription: Read file contents
     FileName: D:\1.txt
     SetToVariables: [ "$var1", "$var2" ]
     ExactVariableCheck: false
