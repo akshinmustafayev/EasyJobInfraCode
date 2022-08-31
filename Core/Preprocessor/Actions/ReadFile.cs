@@ -13,11 +13,16 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
         public string ActionDescription { get; set; }
         public string FileName { get; set; }
         public List<object> SetToVariables { get; set; } = new List<object> { };
+        public string ExactVariableCheck { get; set; } = "false";
 
         public void InvokeAction()
         {
             try
             {
+                // Variables actions
+                FileName = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(FileName, bool.Parse(ExactVariableCheck));
+                
+                // Main Action
                 if (!File.Exists(FileName))
                 {
                     Console.WriteLine("File \"" + FileName + "\" does not exist.");

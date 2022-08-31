@@ -13,18 +13,27 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
         public string FolderSource { get; set; }
         public string FolderDestination { get; set; }
         public string Overwrite { get; set; } = "false";
+        public string ExactVariableCheck { get; set; } = "false";
 
         public void InvokeAction()
         {
             try
             {
+                // Variables actions
+                FolderSource = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(FolderSource, bool.Parse(ExactVariableCheck));
+                FolderDestination = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(FolderDestination, bool.Parse(ExactVariableCheck));
+                Overwrite = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Overwrite, bool.Parse(ExactVariableCheck));
+
+                // Main Action
                 CopyDirectory(FolderSource, FolderDestination, bool.Parse(Overwrite));
+
+                // Verbose
                 ExecutionUtils.ExecutionOptionVerbose("Copied folder from \"" + FolderSource + "\" to \"" + FolderDestination + "\" while overwrite equals \"" + Overwrite + "\"\n");
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
         }
 
-        private static void CopyDirectory(string sourceDir, string destinationDir, bool overwrite)
+        private void CopyDirectory(string sourceDir, string destinationDir, bool overwrite)
         {
             // Get information about the source directory
             var dir = new DirectoryInfo(sourceDir);

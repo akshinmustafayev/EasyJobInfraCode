@@ -12,12 +12,20 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
         public string ActionDescription { get; set; }
         public string FolderName { get; set; }
         public string NewFolderName { get; set; }
+        public string ExactVariableCheck { get; set; } = "false";
 
         public void InvokeAction()
         {
             try
             {
+                // Variables actions
+                FolderName = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(FolderName, bool.Parse(ExactVariableCheck));
+                NewFolderName = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(NewFolderName, bool.Parse(ExactVariableCheck));
+
+                // Main Action
                 Directory.Move(FolderName, NewFolderName);
+
+                // Verbose
                 ExecutionUtils.ExecutionOptionVerbose("Renamed folder from \"" + FolderName + "\" to \"" + NewFolderName + "\"\n");
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }

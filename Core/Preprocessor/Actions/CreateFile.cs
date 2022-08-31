@@ -20,9 +20,13 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
         {
             try
             {
-                byte[] fileContentsBytes = null;
-
+                // Variables actions
+                FileName = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(FileName, bool.Parse(ExactVariableCheck));
                 FileContents = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(FileContents, bool.Parse(ExactVariableCheck));
+                FileEncoding = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(FileEncoding, bool.Parse(ExactVariableCheck));
+
+                // Main Action
+                byte[] fileContentsBytes = null;
 
                 switch (FileEncoding)
                 {
@@ -59,6 +63,8 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
                 }
                 
                 File.WriteAllBytes(FileName, fileContentsBytes);
+
+                // Verbose
                 ExecutionUtils.ExecutionOptionVerbose("Created file with name \"" + FileName + "\" using \"" + FileEncoding + "\" encoding contents of which is \"" + FileContents + "\"\n");
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }

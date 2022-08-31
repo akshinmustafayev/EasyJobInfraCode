@@ -11,13 +11,22 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
         public string ActionName { get; set; }
         public string ActionDescription { get; set; }
         public string Milliseconds { get; set; }
+        public string ExactVariableCheck { get; set; } = "false";
 
         public void InvokeAction()
         {
             try
             {
+                // Variables actions
+                Milliseconds = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Milliseconds, bool.Parse(ExactVariableCheck));
+
+                // Verbose
                 ExecutionUtils.ExecutionOptionVerbose("Waiting for \"" + Milliseconds + "\" milliseconds\n");
-                Thread.Sleep(Convert.ToInt32(Milliseconds));
+
+                // Main Action
+                int milliseconds;
+                Int32.TryParse(Milliseconds, out milliseconds);
+                Thread.Sleep(milliseconds);
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
         }
