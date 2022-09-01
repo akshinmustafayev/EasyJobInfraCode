@@ -136,4 +136,21 @@ Steps:
     Value: some value
     ExactVariableCheckFromValue: false
 
+  - ActionType: Service
+    ActionName: service1Action
+    ActionDescription: Performs action with service
+    Name: service name
+    Action: Start (or Stop, Pause, Continue, Executecommand)
+    Command: 128 (between 128 - 256)
+    ExactVariableCheck: false
+
+  - ActionType: User
+    ActionName: actionWithUser
+    ActionDescription: Performs action with user
+    UserName: john01
+    Action: create
+    Password: A123456a!!
+    Description: user for finance dept
+    Groups: [ "Guests", "Users" ]
+    ExactVariableCheck: false
 

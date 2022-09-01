@@ -6,30 +6,11 @@ Version: 1.0
 Copyrigth: Akshin Mustafayev
 Variables: [ "$var1", "$var2", "$var3" ]
 Steps:
-  - ActionType: ReadFile
-    ActionName: readFile1
-    ActionDescription: Reads file contents
-    FileName: D:\1.txt
-    SetToVariables: [ "$var1" ]
+  - ActionType: User
+    ActionName: actionWithUser
+    ActionDescription: Performs action with user
+    UserName: john01
+    Password: A123456a!!
+    Action: create
 
-  - ActionType: SetVariableValue
-    ActionName: setVariableValue1
-    ActionDescription: Sets value to variable
-    Variables: [ "$var3" ]
-    Value: VAR3AAAAAAA
-    ExactVariableCheckFromValue: false
 
-  - ActionType: SetVariableValue
-    ActionName: setVariableValue1
-    ActionDescription: Sets value to variable
-    Variables: [ "$var2" ]
-    Value: $var3
-    ExactVariableCheckFromValue: false
-
-  - ActionType: CreateFile
-    ActionName: createFile1
-    ActionDescription: Creates a file with specified content
-    FileName: D:\new_file.txt
-    FileContents: $var1 + $var2
-    FileEncoding: ASCII
-    ExactVariableCheck: false

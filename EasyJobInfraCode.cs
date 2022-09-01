@@ -220,19 +220,6 @@ namespace EasyJobInfraCode
                                 renameFolder.InvokeAction();
                             }
                             break;
-                        case "Wait":
-                            {
-                                Wait wait = Step.ToObject<Wait>();
-
-                                ExecutionUtils.ExecutionOptionVerbose($"\nWait step data from yaml: " +
-                                    $"\n\tActionType: {wait.ActionType}" +
-                                    $"\n\tActionName: {wait.ActionName}" +
-                                    $"\n\tActionDescription: {wait.ActionDescription}" +
-                                    $"\n\tMilliseconds: {wait.Milliseconds}");
-
-                                wait.InvokeAction();
-                            }
-                            break;
                         case "InvokePowerShellScriptFile":
                             {
                                 InvokePowerShellScriptFile invokePowerShellScriptFile = Step.ToObject<InvokePowerShellScriptFile>();
@@ -294,6 +281,21 @@ namespace EasyJobInfraCode
                                 readFile.InvokeAction();
                             }
                             break;
+                        case "Service":
+                            {
+                                Service service = Step.ToObject<Service>();
+
+                                ExecutionUtils.ExecutionOptionVerbose($"\nService step data from yaml: " +
+                                    $"\n\tActionType: {service.ActionType}" +
+                                    $"\n\tActionName: {service.ActionName}" +
+                                    $"\n\tActionDescription: {service.ActionDescription}" +
+                                    $"\n\tName: {service.Name}" +
+                                    $"\n\tAction: {service.Action}" +
+                                    $"\n\tCommand: {service.Command}");
+
+                                service.InvokeAction();
+                            }
+                            break;
                         case "SetVariableValue":
                             {
                                 SetVariableValue setVariableValue = Step.ToObject<SetVariableValue>();
@@ -306,6 +308,36 @@ namespace EasyJobInfraCode
                                     $"\n\tValue: {setVariableValue.Value}");
 
                                 setVariableValue.InvokeAction();
+                            }
+                            break;
+                        case "User":
+                            {
+                                User user = Step.ToObject<User>();
+
+                                ExecutionUtils.ExecutionOptionVerbose($"\nUser step data from yaml: " +
+                                    $"\n\tActionType: {user.ActionType}" +
+                                    $"\n\tActionName: {user.ActionName}" +
+                                    $"\n\tActionDescription: {user.ActionDescription}" +
+                                    $"\n\tUserName: {user.UserName}" +
+                                    $"\n\tAction: {user.Action}" +
+                                    $"\n\tPassword: {user.Password}" +
+                                    $"\n\tDescription: {user.Description}" +
+                                    $"\n\tGroups: {ListUtil.ConvertListToString(user.Groups)}");
+
+                                user.InvokeAction();
+                            }
+                            break;
+                        case "Wait":
+                            {
+                                Wait wait = Step.ToObject<Wait>();
+
+                                ExecutionUtils.ExecutionOptionVerbose($"\nWait step data from yaml: " +
+                                    $"\n\tActionType: {wait.ActionType}" +
+                                    $"\n\tActionName: {wait.ActionName}" +
+                                    $"\n\tActionDescription: {wait.ActionDescription}" +
+                                    $"\n\tMilliseconds: {wait.Milliseconds}");
+
+                                wait.InvokeAction();
                             }
                             break;
                     }
