@@ -10,7 +10,7 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
     {
         public string ActionType { get; set; }
         public string ActionName { get; set; }
-        public string ActionDescription { get; set; }
+        public string ActionDescription { get; set; } = "";
         public string FileName { get; set; }
         public List<object> SetToVariables { get; set; } = new List<object> { };
         public string ExactVariableCheck { get; set; } = "false";

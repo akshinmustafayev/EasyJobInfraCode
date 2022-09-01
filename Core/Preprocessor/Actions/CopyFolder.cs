@@ -9,7 +9,7 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
     {
         public string ActionType { get; set; }
         public string ActionName { get; set; }
-        public string ActionDescription { get; set; }
+        public string ActionDescription { get; set; } = "";
         public string FolderSource { get; set; }
         public string FolderDestination { get; set; }
         public string Overwrite { get; set; } = "false";
