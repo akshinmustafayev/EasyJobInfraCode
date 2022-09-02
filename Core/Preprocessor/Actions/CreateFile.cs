@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using System.IO;
 using EasyJobInfraCode.Core.Argprocessor;
 using EasyJobInfraCode.Core.Types;
@@ -11,9 +10,10 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
         public string ActionType { get; set; }
         public string ActionName { get; set; }
         public string ActionDescription { get; set; } = "";
-        public string FileName { get; set; }
-        public string FileContents { get; set; }
-        public string FileEncoding { get; set; } = "ASCII";
+        public string Name { get; set; }
+        public string Content { get; set; }
+        public string Encoding { get; set; } = "ASCII";
+        public string Append { get; set; } = "true";
         public string ExactVariableCheck { get; set; } = "false";
 
         public void InvokeAction()
@@ -21,51 +21,30 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
             try
             {
                 // Variables actions
-                FileName = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(FileName, bool.Parse(ExactVariableCheck));
-                FileContents = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(FileContents, bool.Parse(ExactVariableCheck));
-                FileEncoding = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(FileEncoding, bool.Parse(ExactVariableCheck));
+                Name = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Name, bool.Parse(ExactVariableCheck));
+                Content = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Content, bool.Parse(ExactVariableCheck));
+                Encoding = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Encoding, bool.Parse(ExactVariableCheck));
 
                 // Main Action
-                byte[] fileContentsBytes = null;
+                System.Text.Encoding encoding = System.Text.Encoding.ASCII;
 
-                switch (FileEncoding)
+                if (Encoding == "UTF8") { encoding = System.Text.Encoding.UTF8; }
+                else if (Encoding == "UTF32") { encoding = System.Text.Encoding.UTF32; }
+                else if (Encoding == "BigEndianUnicode") { encoding = System.Text.Encoding.BigEndianUnicode; }
+                else if (Encoding == "Latin1") { encoding = System.Text.Encoding.Latin1; }
+                else if (Encoding == "ASCII") { encoding = System.Text.Encoding.ASCII; }
+
+                if (bool.Parse(Append))
                 {
-                    case "UTF8":
-                        {
-                            fileContentsBytes = Encoding.UTF8.GetBytes(FileContents);
-                        }
-                        break;
-                    case "UTF32":
-                        {
-                            fileContentsBytes = Encoding.UTF32.GetBytes(FileContents);
-                        }
-                        break;
-                    case "BigEndianUnicode":
-                        {
-                            fileContentsBytes = Encoding.BigEndianUnicode.GetBytes(FileContents);
-                        }
-                        break;
-                    case "Latin1":
-                        {
-                            fileContentsBytes = Encoding.Latin1.GetBytes(FileContents);
-                        }
-                        break;
-                    case "ASCII":
-                        {
-                            fileContentsBytes = Encoding.ASCII.GetBytes(FileContents);
-                        }
-                        break;
-                    default:
-                        {
-                            fileContentsBytes = Encoding.UTF8.GetBytes(FileContents);
-                        }
-                        break;
+                    File.AppendAllText(Name, Content, encoding);
                 }
-                
-                File.WriteAllBytes(FileName, fileContentsBytes);
+                else
+                {
+                    File.WriteAllText(Name, Content, encoding);
+                }
 
                 // Verbose
-                ExecutionUtils.ExecutionOptionVerbose("Created file with name \"" + FileName + "\" using \"" + FileEncoding + "\" encoding contents of which is \"" + FileContents + "\"\n");
+                ExecutionUtils.ExecutionOptionVerbose("Created file with name \"" + Name + "\" using \"" + Encoding + "\" encoding contents of which is \"" + Content + "\"\n");
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
         }
