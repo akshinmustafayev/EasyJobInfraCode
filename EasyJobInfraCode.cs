@@ -77,6 +77,20 @@ namespace EasyJobInfraCode
 
                     switch (actionType.ToString())
                     {
+
+                        case "CleanFolderContents":
+                            {
+                                CleanFolderContents cleanFolderContents = Step.ToObject<CleanFolderContents>();
+
+                                ExecutionUtils.ExecutionOptionVerbose($"\nCleanFolderContents step data from yaml: " +
+                                    $"\n\tActionType: {cleanFolderContents.ActionType}" +
+                                    $"\n\tActionName: {cleanFolderContents.ActionName}" +
+                                    $"\n\tActionDescription: {cleanFolderContents.ActionDescription}" +
+                                    $"\n\tFolderName: {cleanFolderContents.FolderName}");
+
+                                cleanFolderContents.InvokeAction();
+                            }
+                            break;
                         case "CopyFile":
                             {
                                 CopyFile copyFile = Step.ToObject<CopyFile>();
@@ -90,91 +104,6 @@ namespace EasyJobInfraCode
                                     $"\n\tOverwrite: {copyFile.Overwrite}");
 
                                 copyFile.InvokeAction();
-                            }
-                            break;
-                        case "MoveFile":
-                            {
-                                MoveFile moveFile = Step.ToObject<MoveFile>();
-
-                                ExecutionUtils.ExecutionOptionVerbose($"\nMoveFile step data from yaml: " +
-                                    $"\n\tActionType: {moveFile.ActionType}" +
-                                    $"\n\tActionName: {moveFile.ActionName}" +
-                                    $"\n\tActionDescription: {moveFile.ActionDescription}" +
-                                    $"\n\tFileSource: {moveFile.FileSource}" +
-                                    $"\n\tFileDestination: {moveFile.FileDestination}" +
-                                    $"\n\tOverwrite: {moveFile.Overwrite}");
-
-                                moveFile.InvokeAction();
-                            }
-                            break;
-                        case "RenameFile":
-                            {
-                                RenameFile renameFile = Step.ToObject<RenameFile>();
-
-                                ExecutionUtils.ExecutionOptionVerbose($"\nRenameFile step data from yaml: " +
-                                    $"\n\tActionType: {renameFile.ActionType}" +
-                                    $"\n\tActionName: {renameFile.ActionName}" +
-                                    $"\n\tActionDescription: {renameFile.ActionDescription}" +
-                                    $"\n\tFileName: {renameFile.FileName}" +
-                                    $"\n\tNewFileName: {renameFile.NewFileName}" +
-                                    $"\n\tOverwrite: {renameFile.Overwrite}");
-
-                                renameFile.InvokeAction();
-                            }
-                            break;
-                        case "CreateFile":
-                            {
-                                CreateFile createFile = Step.ToObject<CreateFile>();
-
-                                ExecutionUtils.ExecutionOptionVerbose($"\nCreateFile step data from yaml: " +
-                                    $"\n\tActionType: {createFile.ActionType}" +
-                                    $"\n\tActionName: {createFile.ActionName}" +
-                                    $"\n\tActionDescription: {createFile.ActionDescription}" +
-                                    $"\n\tFileName: {createFile.FileName}" +
-                                    $"\n\tFileContents: {createFile.FileContents}" +
-                                    $"\n\tFileEncoding: {createFile.FileEncoding}" +
-                                    $"\n\tExactVariableCheck: {createFile.ExactVariableCheck}");
-
-                                createFile.InvokeAction();
-                            }
-                            break;
-                        case "DeleteFile":
-                            {
-                                DeleteFile deleteFile = Step.ToObject<DeleteFile>();
-
-                                ExecutionUtils.ExecutionOptionVerbose($"\nDeleteFile step data from yaml: " +
-                                    $"\n\tActionType: {deleteFile.ActionType}" +
-                                    $"\n\tActionName: {deleteFile.ActionName}" +
-                                    $"\n\tActionDescription: {deleteFile.ActionDescription}" +
-                                    $"\n\tFileName: {deleteFile.FileName}");
-
-                                deleteFile.InvokeAction();
-                            }
-                            break;
-                        case "CreateFolder":
-                            {
-                                CreateFolder createFolder = Step.ToObject<CreateFolder>();
-
-                                ExecutionUtils.ExecutionOptionVerbose($"\nCreateFolder step data from yaml: " +
-                                    $"\n\tActionType: {createFolder.ActionType}" +
-                                    $"\n\tActionName: {createFolder.ActionName}" +
-                                    $"\n\tActionDescription: {createFolder.ActionDescription}" +
-                                    $"\n\tFolderName: {createFolder.FolderName}");
-
-                                createFolder.InvokeAction();
-                            }
-                            break;
-                        case "DeleteFolder":
-                            {
-                                DeleteFolder deleteFolder = Step.ToObject<DeleteFolder>();
-
-                                ExecutionUtils.ExecutionOptionVerbose($"\nDeleteFolder step data from yaml: " +
-                                    $"\n\tActionType: {deleteFolder.ActionType}" +
-                                    $"\n\tActionName: {deleteFolder.ActionName}" +
-                                    $"\n\tActionDescription: {deleteFolder.ActionDescription}" +
-                                    $"\n\tFolderName: {deleteFolder.FolderName}");
-
-                                deleteFolder.InvokeAction();
                             }
                             break;
                         case "CopyFolder":
@@ -192,49 +121,77 @@ namespace EasyJobInfraCode
                                 copyFolder.InvokeAction();
                             }
                             break;
-                        case "MoveFolder":
+                        case "CreateFile":
                             {
-                                MoveFolder moveFolder = Step.ToObject<MoveFolder>();
+                                CreateFile createFile = Step.ToObject<CreateFile>();
 
-                                ExecutionUtils.ExecutionOptionVerbose($"\nMoveFolder step data from yaml: " +
-                                    $"\n\tActionType: {moveFolder.ActionType}" +
-                                    $"\n\tActionName: {moveFolder.ActionName}" +
-                                    $"\n\tActionDescription: {moveFolder.ActionDescription}" +
-                                    $"\n\tFolderSource: {moveFolder.FolderSource}" +
-                                    $"\n\tFolderDestination: {moveFolder.FolderDestination}");
+                                ExecutionUtils.ExecutionOptionVerbose($"\nCreateFile step data from yaml: " +
+                                    $"\n\tActionType: {createFile.ActionType}" +
+                                    $"\n\tActionName: {createFile.ActionName}" +
+                                    $"\n\tActionDescription: {createFile.ActionDescription}" +
+                                    $"\n\tName: {createFile.Name}" +
+                                    $"\n\tContent: {createFile.Content}" +
+                                    $"\n\tEncoding: {createFile.Encoding}" +
+                                    $"\n\tAppend: {createFile.Append}" +
+                                    $"\n\tExactVariableCheck: {createFile.ExactVariableCheck}");
 
-                                moveFolder.InvokeAction();
+                                createFile.InvokeAction();
                             }
                             break;
-                        case "RenameFolder":
+                        case "CreateFolder":
                             {
-                                RenameFolder renameFolder = Step.ToObject<RenameFolder>();
+                                CreateFolder createFolder = Step.ToObject<CreateFolder>();
 
-                                ExecutionUtils.ExecutionOptionVerbose($"\nRenameFolder step data from yaml: " +
-                                    $"\n\tActionType: {renameFolder.ActionType}" +
-                                    $"\n\tActionName: {renameFolder.ActionName}" +
-                                    $"\n\tActionDescription: {renameFolder.ActionDescription}" +
-                                    $"\n\tFolderName: {renameFolder.FolderName}" +
-                                    $"\n\tNewFolderName: {renameFolder.NewFolderName}");
+                                ExecutionUtils.ExecutionOptionVerbose($"\nCreateFolder step data from yaml: " +
+                                    $"\n\tActionType: {createFolder.ActionType}" +
+                                    $"\n\tActionName: {createFolder.ActionName}" +
+                                    $"\n\tActionDescription: {createFolder.ActionDescription}" +
+                                    $"\n\tFolderName: {createFolder.FolderName}");
 
-                                renameFolder.InvokeAction();
+                                createFolder.InvokeAction();
                             }
                             break;
-                        case "InvokePowerShellScriptFile":
+                        case "Debug":
                             {
-                                InvokePowerShellScriptFile invokePowerShellScriptFile = Step.ToObject<InvokePowerShellScriptFile>();
+                                Debug debug = Step.ToObject<Debug>();
 
-                                ExecutionUtils.ExecutionOptionVerbose($"\nInvokePowerShellScriptFile step data from yaml: " +
-                                    $"\n\tActionType: {invokePowerShellScriptFile.ActionType}" +
-                                    $"\n\tActionName: {invokePowerShellScriptFile.ActionName}" +
-                                    $"\n\tActionDescription: {invokePowerShellScriptFile.ActionDescription}" +
-                                    $"\n\tFileName: {invokePowerShellScriptFile.FileName}" +
-                                    $"\n\tFileArguments: {ListUtil.ConvertListToString(invokePowerShellScriptFile.FileArguments)}" +
-                                    $"\n\tPowerShellArguments: {invokePowerShellScriptFile.PowerShellArguments}" +
-                                    $"\n\tWorkingDirectory: {invokePowerShellScriptFile.WorkingDirectory}" +
-                                    $"\n\tPowerShellExecutable: {invokePowerShellScriptFile.PowerShellExecutable}");
+                                ExecutionUtils.ExecutionOptionVerbose($"\nDebug step data from yaml: " +
+                                    $"\n\tActionType: {debug.ActionType}" +
+                                    $"\n\tActionName: {debug.ActionName}" +
+                                    $"\n\tActionDescription: {debug.ActionDescription}" +
+                                    $"\n\tDestination: {debug.Destination}" +
+                                    $"\n\tFile: {debug.File}" +
+                                    $"\n\tAppend: {debug.Append}" +
+                                    $"\n\tMessage: {debug.Message}" +
+                                    $"\n\tEncoding: {debug.Encoding}");
 
-                                invokePowerShellScriptFile.InvokeAction();
+                                debug.InvokeAction();
+                            }
+                            break;
+                        case "DeleteFile":
+                            {
+                                DeleteFile deleteFile = Step.ToObject<DeleteFile>();
+
+                                ExecutionUtils.ExecutionOptionVerbose($"\nDeleteFile step data from yaml: " +
+                                    $"\n\tActionType: {deleteFile.ActionType}" +
+                                    $"\n\tActionName: {deleteFile.ActionName}" +
+                                    $"\n\tActionDescription: {deleteFile.ActionDescription}" +
+                                    $"\n\tFileName: {deleteFile.FileName}");
+
+                                deleteFile.InvokeAction();
+                            }
+                            break;
+                        case "DeleteFolder":
+                            {
+                                DeleteFolder deleteFolder = Step.ToObject<DeleteFolder>();
+
+                                ExecutionUtils.ExecutionOptionVerbose($"\nDeleteFolder step data from yaml: " +
+                                    $"\n\tActionType: {deleteFolder.ActionType}" +
+                                    $"\n\tActionName: {deleteFolder.ActionName}" +
+                                    $"\n\tActionDescription: {deleteFolder.ActionDescription}" +
+                                    $"\n\tFolderName: {deleteFolder.FolderName}");
+
+                                deleteFolder.InvokeAction();
                             }
                             break;
                         case "InvokePowerShellScript":
@@ -254,17 +211,50 @@ namespace EasyJobInfraCode
                                 invokePowerShellScript.InvokeAction();
                             }
                             break;
-                        case "CleanFolderContents":
+                        case "InvokePowerShellScriptFile":
                             {
-                                CleanFolderContents cleanFolderContents = Step.ToObject<CleanFolderContents>();
+                                InvokePowerShellScriptFile invokePowerShellScriptFile = Step.ToObject<InvokePowerShellScriptFile>();
 
-                                ExecutionUtils.ExecutionOptionVerbose($"\nCleanFolderContents step data from yaml: " +
-                                    $"\n\tActionType: {cleanFolderContents.ActionType}" +
-                                    $"\n\tActionName: {cleanFolderContents.ActionName}" +
-                                    $"\n\tActionDescription: {cleanFolderContents.ActionDescription}" +
-                                    $"\n\tFolderName: {cleanFolderContents.FolderName}");
+                                ExecutionUtils.ExecutionOptionVerbose($"\nInvokePowerShellScriptFile step data from yaml: " +
+                                    $"\n\tActionType: {invokePowerShellScriptFile.ActionType}" +
+                                    $"\n\tActionName: {invokePowerShellScriptFile.ActionName}" +
+                                    $"\n\tActionDescription: {invokePowerShellScriptFile.ActionDescription}" +
+                                    $"\n\tFileName: {invokePowerShellScriptFile.FileName}" +
+                                    $"\n\tFileArguments: {ListUtil.ConvertListToString(invokePowerShellScriptFile.FileArguments)}" +
+                                    $"\n\tPowerShellArguments: {invokePowerShellScriptFile.PowerShellArguments}" +
+                                    $"\n\tWorkingDirectory: {invokePowerShellScriptFile.WorkingDirectory}" +
+                                    $"\n\tPowerShellExecutable: {invokePowerShellScriptFile.PowerShellExecutable}");
 
-                                cleanFolderContents.InvokeAction();
+                                invokePowerShellScriptFile.InvokeAction();
+                            }
+                            break;
+                        case "MoveFile":
+                            {
+                                MoveFile moveFile = Step.ToObject<MoveFile>();
+
+                                ExecutionUtils.ExecutionOptionVerbose($"\nMoveFile step data from yaml: " +
+                                    $"\n\tActionType: {moveFile.ActionType}" +
+                                    $"\n\tActionName: {moveFile.ActionName}" +
+                                    $"\n\tActionDescription: {moveFile.ActionDescription}" +
+                                    $"\n\tFileSource: {moveFile.FileSource}" +
+                                    $"\n\tFileDestination: {moveFile.FileDestination}" +
+                                    $"\n\tOverwrite: {moveFile.Overwrite}");
+
+                                moveFile.InvokeAction();
+                            }
+                            break;
+                        case "MoveFolder":
+                            {
+                                MoveFolder moveFolder = Step.ToObject<MoveFolder>();
+
+                                ExecutionUtils.ExecutionOptionVerbose($"\nMoveFolder step data from yaml: " +
+                                    $"\n\tActionType: {moveFolder.ActionType}" +
+                                    $"\n\tActionName: {moveFolder.ActionName}" +
+                                    $"\n\tActionDescription: {moveFolder.ActionDescription}" +
+                                    $"\n\tFolderSource: {moveFolder.FolderSource}" +
+                                    $"\n\tFolderDestination: {moveFolder.FolderDestination}");
+
+                                moveFolder.InvokeAction();
                             }
                             break;
                         case "ReadFile":
@@ -276,9 +266,38 @@ namespace EasyJobInfraCode
                                     $"\n\tActionName: {readFile.ActionName}" +
                                     $"\n\tActionDescription: {readFile.ActionDescription}" +
                                     $"\n\tFileName: {readFile.FileName}" +
-                                    $"\n\tSetToVariables: { ListUtil.ConvertListToString(readFile.SetToVariables, "\"", ", ") }");
+                                    $"\n\tSetToVariables: {ListUtil.ConvertListToString(readFile.SetToVariables, "\"", ", ")}");
 
                                 readFile.InvokeAction();
+                            }
+                            break;
+                        case "RenameFile":
+                            {
+                                RenameFile renameFile = Step.ToObject<RenameFile>();
+
+                                ExecutionUtils.ExecutionOptionVerbose($"\nRenameFile step data from yaml: " +
+                                    $"\n\tActionType: {renameFile.ActionType}" +
+                                    $"\n\tActionName: {renameFile.ActionName}" +
+                                    $"\n\tActionDescription: {renameFile.ActionDescription}" +
+                                    $"\n\tFileName: {renameFile.FileName}" +
+                                    $"\n\tNewFileName: {renameFile.NewFileName}" +
+                                    $"\n\tOverwrite: {renameFile.Overwrite}");
+
+                                renameFile.InvokeAction();
+                            }
+                            break;
+                        case "RenameFolder":
+                            {
+                                RenameFolder renameFolder = Step.ToObject<RenameFolder>();
+
+                                ExecutionUtils.ExecutionOptionVerbose($"\nRenameFolder step data from yaml: " +
+                                    $"\n\tActionType: {renameFolder.ActionType}" +
+                                    $"\n\tActionName: {renameFolder.ActionName}" +
+                                    $"\n\tActionDescription: {renameFolder.ActionDescription}" +
+                                    $"\n\tFolderName: {renameFolder.FolderName}" +
+                                    $"\n\tNewFolderName: {renameFolder.NewFolderName}");
+
+                                renameFolder.InvokeAction();
                             }
                             break;
                         case "Service":
@@ -318,7 +337,7 @@ namespace EasyJobInfraCode
                                     $"\n\tActionType: {user.ActionType}" +
                                     $"\n\tActionName: {user.ActionName}" +
                                     $"\n\tActionDescription: {user.ActionDescription}" +
-                                    $"\n\tUserName: {user.UserName}" +
+                                    $"\n\tUserName: {user.Name}" +
                                     $"\n\tAction: {user.Action}" +
                                     $"\n\tPassword: {user.Password}" +
                                     $"\n\tDescription: {user.Description}" +

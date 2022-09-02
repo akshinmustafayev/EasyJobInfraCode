@@ -25,17 +25,28 @@ Steps:
   - ActionType: CreateFile
     ActionName: createFile1
     ActionDescription: Creates a file with specified content
-    FileName: D:\new_file.txt
-    FileContents: "some content \n
+    Name: D:\new_file.txt
+    Content: "some content \n
     sdfsdfsdfsdfsdfsdfsdf \n
     sdfsdfsdgfdsfgfdgsfdgdsfgsfdgdsfg $var1"
-    FileEncoding: ASCII
+    Encoding: ASCII (or UTF8, UTF32, Latin1, BigEndianUnicode)
+    Append: true
     ExactVariableCheck: false
 
   - ActionType: CreateFolder
     ActionName: createFolder1
     ActionDescription: Creates folder
     FolderName: D:\somefolder1
+    ExactVariableCheck: false
+
+  - ActionType: Debug
+    ActionName: debugLog1
+    ActionDescription: Shows debug message
+    Destination: console (or file)
+    File: D:\file.txt
+    Append: true
+    Message: some message to show
+    Encoding: ASCII (or UTF8, UTF32, Latin1, BigEndianUnicode)
     ExactVariableCheck: false
 
   - ActionType: DeleteFile
