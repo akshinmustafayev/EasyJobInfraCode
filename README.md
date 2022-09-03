@@ -22,6 +22,9 @@
 ## :newspaper: Description
 <img src="assets/logo.png" height="20" width="20"/> EasyJobInfraCode - is a Lightweight automation tool, performs administrative tasks using __yaml__ playbooks.
 
+## :eye_speech_bubble: Overview
+<img src="assets/overview1.png"/> 
+
 ## :page_with_curl: Examples
 ```yaml
 Name: Automation Workflow Example 1
@@ -56,7 +59,7 @@ Steps:
     Action: Start
 ```
 
-## :electric_plug: Usage
+## :triangular_ruler: Usage
 EJIC can accept the following arguments
 ```
   -f, --file       Required. Set file to process.
@@ -79,5 +82,15 @@ to see verbose output write
 ```
 EasyJobInfraCode.exe -f "D:\path\to\yaml\playbook.yaml" -v
 ```
+
+## :electric_plug: Compilation
+
+1. Download and install Visual Studio 2022
+2. Open project in Visual Studio and build it
+
+## :dart: Contributing
+
+Contribution is very much appreciated. Hope that this tool might be useful for you!
+
 
 <img src="assets/footer.svg"/>
