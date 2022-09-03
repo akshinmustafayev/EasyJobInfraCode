@@ -7,21 +7,17 @@ Copyrigth: Akshin Mustafayev
 Variables: [ "$var1", "$var2", "$var3" ]
 Steps:
   - ActionType: SetVariableValue
-    ActionName: setVariableValue1
     ActionDescription: Sets value to variable
     Variable: $var1, $var2
     Value: some value
     ExactVariableCheckFromValue: false
 
-
   - ActionType: Debug
-    ActionName: debugLog1
     ActionDescription: Shows debug message
     Destination: console
     Message: $var1
 
   - ActionType: Debug
-    ActionName: debugLog1
     ActionDescription: Shows debug message
     Destination: console
     Message: $var2

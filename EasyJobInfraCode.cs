@@ -66,14 +66,6 @@ namespace EasyJobInfraCode
                 {
                     object actionType = "";
                     Step.TryGetValue("ActionType", out actionType);
-                    object actionName = "";
-                    Step.TryGetValue("ActionName", out actionName);
-
-                    if (actionName.ToString().Contains(' '))
-                    {
-                        Console.WriteLine("Step with name '" + Step["ActionName"] + "' has space character in it. It must not have space characters!");
-                        continue;
-                    }
 
                     switch (actionType.ToString())
                     {
@@ -83,7 +75,6 @@ namespace EasyJobInfraCode
 
                                 ExecutionUtils.ExecutionOptionVerbose($"\nCleanFolderContents step data from yaml: " +
                                     $"\n\tActionType: {cleanFolderContents.ActionType}" +
-                                    $"\n\tActionName: {cleanFolderContents.ActionName}" +
                                     $"\n\tActionDescription: {cleanFolderContents.ActionDescription}" +
                                     $"\n\tFolderName: {cleanFolderContents.FolderName}");
 
@@ -96,7 +87,6 @@ namespace EasyJobInfraCode
 
                                 ExecutionUtils.ExecutionOptionVerbose($"\nCopyFile step data from yaml: " +
                                     $"\n\tActionType: {copyFile.ActionType}" +
-                                    $"\n\tActionName: {copyFile.ActionName}" +
                                     $"\n\tActionDescription: {copyFile.ActionDescription}" +
                                     $"\n\tFileSource: {copyFile.FileSource}" +
                                     $"\n\tFileDestination: {copyFile.FileDestination}" +
@@ -111,7 +101,6 @@ namespace EasyJobInfraCode
 
                                 ExecutionUtils.ExecutionOptionVerbose($"\nCopyFolder step data from yaml: " +
                                     $"\n\tActionType: {copyFolder.ActionType}" +
-                                    $"\n\tActionName: {copyFolder.ActionName}" +
                                     $"\n\tActionDescription: {copyFolder.ActionDescription}" +
                                     $"\n\tFolderSource: {copyFolder.FolderSource}" +
                                     $"\n\tFolderDestination: {copyFolder.FolderDestination}" +
@@ -126,7 +115,6 @@ namespace EasyJobInfraCode
 
                                 ExecutionUtils.ExecutionOptionVerbose($"\nCreateFile step data from yaml: " +
                                     $"\n\tActionType: {createFile.ActionType}" +
-                                    $"\n\tActionName: {createFile.ActionName}" +
                                     $"\n\tActionDescription: {createFile.ActionDescription}" +
                                     $"\n\tName: {createFile.Name}" +
                                     $"\n\tContent: {createFile.Content}" +
@@ -143,7 +131,6 @@ namespace EasyJobInfraCode
 
                                 ExecutionUtils.ExecutionOptionVerbose($"\nCreateFolder step data from yaml: " +
                                     $"\n\tActionType: {createFolder.ActionType}" +
-                                    $"\n\tActionName: {createFolder.ActionName}" +
                                     $"\n\tActionDescription: {createFolder.ActionDescription}" +
                                     $"\n\tFolderName: {createFolder.FolderName}");
 
@@ -156,7 +143,6 @@ namespace EasyJobInfraCode
 
                                 ExecutionUtils.ExecutionOptionVerbose($"\nDebug step data from yaml: " +
                                     $"\n\tActionType: {debug.ActionType}" +
-                                    $"\n\tActionName: {debug.ActionName}" +
                                     $"\n\tActionDescription: {debug.ActionDescription}" +
                                     $"\n\tDestination: {debug.Destination}" +
                                     $"\n\tFile: {debug.File}" +
@@ -173,7 +159,6 @@ namespace EasyJobInfraCode
 
                                 ExecutionUtils.ExecutionOptionVerbose($"\nDeleteFile step data from yaml: " +
                                     $"\n\tActionType: {deleteFile.ActionType}" +
-                                    $"\n\tActionName: {deleteFile.ActionName}" +
                                     $"\n\tActionDescription: {deleteFile.ActionDescription}" +
                                     $"\n\tFileName: {deleteFile.FileName}");
 
@@ -186,7 +171,6 @@ namespace EasyJobInfraCode
 
                                 ExecutionUtils.ExecutionOptionVerbose($"\nDeleteFolder step data from yaml: " +
                                     $"\n\tActionType: {deleteFolder.ActionType}" +
-                                    $"\n\tActionName: {deleteFolder.ActionName}" +
                                     $"\n\tActionDescription: {deleteFolder.ActionDescription}" +
                                     $"\n\tFolderName: {deleteFolder.FolderName}");
 
@@ -199,7 +183,6 @@ namespace EasyJobInfraCode
 
                                 ExecutionUtils.ExecutionOptionVerbose($"\nInvokePowerShellScript step data from yaml: " +
                                     $"\n\tActionType: {invokePowerShellScript.ActionType}" +
-                                    $"\n\tActionName: {invokePowerShellScript.ActionName}" +
                                     $"\n\tActionDescription: {invokePowerShellScript.ActionDescription}" +
                                     $"\n\tScript: {invokePowerShellScript.Script}" +
                                     $"\n\tScriptArguments: {ListUtil.ConvertListToString(invokePowerShellScript.ScriptArguments)}" +
@@ -216,7 +199,6 @@ namespace EasyJobInfraCode
 
                                 ExecutionUtils.ExecutionOptionVerbose($"\nInvokePowerShellScriptFile step data from yaml: " +
                                     $"\n\tActionType: {invokePowerShellScriptFile.ActionType}" +
-                                    $"\n\tActionName: {invokePowerShellScriptFile.ActionName}" +
                                     $"\n\tActionDescription: {invokePowerShellScriptFile.ActionDescription}" +
                                     $"\n\tFileName: {invokePowerShellScriptFile.FileName}" +
                                     $"\n\tFileArguments: {ListUtil.ConvertListToString(invokePowerShellScriptFile.FileArguments)}" +
@@ -233,7 +215,6 @@ namespace EasyJobInfraCode
 
                                 ExecutionUtils.ExecutionOptionVerbose($"\nMoveFile step data from yaml: " +
                                     $"\n\tActionType: {moveFile.ActionType}" +
-                                    $"\n\tActionName: {moveFile.ActionName}" +
                                     $"\n\tActionDescription: {moveFile.ActionDescription}" +
                                     $"\n\tFileSource: {moveFile.FileSource}" +
                                     $"\n\tFileDestination: {moveFile.FileDestination}" +
@@ -248,7 +229,6 @@ namespace EasyJobInfraCode
 
                                 ExecutionUtils.ExecutionOptionVerbose($"\nMoveFolder step data from yaml: " +
                                     $"\n\tActionType: {moveFolder.ActionType}" +
-                                    $"\n\tActionName: {moveFolder.ActionName}" +
                                     $"\n\tActionDescription: {moveFolder.ActionDescription}" +
                                     $"\n\tFolderSource: {moveFolder.FolderSource}" +
                                     $"\n\tFolderDestination: {moveFolder.FolderDestination}");
@@ -262,7 +242,6 @@ namespace EasyJobInfraCode
 
                                 ExecutionUtils.ExecutionOptionVerbose($"\nReadFile step data from yaml: " +
                                     $"\n\tActionType: {readFile.ActionType}" +
-                                    $"\n\tActionName: {readFile.ActionName}" +
                                     $"\n\tActionDescription: {readFile.ActionDescription}" +
                                     $"\n\tFileName: {readFile.FileName}" +
                                     $"\n\tSetToVariables: {readFile.Out}");
@@ -276,7 +255,6 @@ namespace EasyJobInfraCode
 
                                 ExecutionUtils.ExecutionOptionVerbose($"\nRenameFile step data from yaml: " +
                                     $"\n\tActionType: {renameFile.ActionType}" +
-                                    $"\n\tActionName: {renameFile.ActionName}" +
                                     $"\n\tActionDescription: {renameFile.ActionDescription}" +
                                     $"\n\tFileName: {renameFile.FileName}" +
                                     $"\n\tNewFileName: {renameFile.NewFileName}" +
@@ -291,7 +269,6 @@ namespace EasyJobInfraCode
 
                                 ExecutionUtils.ExecutionOptionVerbose($"\nRenameFolder step data from yaml: " +
                                     $"\n\tActionType: {renameFolder.ActionType}" +
-                                    $"\n\tActionName: {renameFolder.ActionName}" +
                                     $"\n\tActionDescription: {renameFolder.ActionDescription}" +
                                     $"\n\tFolderName: {renameFolder.FolderName}" +
                                     $"\n\tNewFolderName: {renameFolder.NewFolderName}");
@@ -305,7 +282,6 @@ namespace EasyJobInfraCode
 
                                 ExecutionUtils.ExecutionOptionVerbose($"\nService step data from yaml: " +
                                     $"\n\tActionType: {service.ActionType}" +
-                                    $"\n\tActionName: {service.ActionName}" +
                                     $"\n\tActionDescription: {service.ActionDescription}" +
                                     $"\n\tName: {service.Name}" +
                                     $"\n\tAction: {service.Action}" +
@@ -320,7 +296,6 @@ namespace EasyJobInfraCode
 
                                 ExecutionUtils.ExecutionOptionVerbose($"\nSetVariableValue step data from yaml: " +
                                     $"\n\tActionType: {setVariableValue.ActionType}" +
-                                    $"\n\tActionName: {setVariableValue.ActionName}" +
                                     $"\n\tActionDescription: {setVariableValue.ActionDescription}" +
                                     $"\n\tVariables: {setVariableValue.Variable}" +
                                     $"\n\tValue: {setVariableValue.Value}");
@@ -334,7 +309,6 @@ namespace EasyJobInfraCode
 
                                 ExecutionUtils.ExecutionOptionVerbose($"\nUser step data from yaml: " +
                                     $"\n\tActionType: {user.ActionType}" +
-                                    $"\n\tActionName: {user.ActionName}" +
                                     $"\n\tActionDescription: {user.ActionDescription}" +
                                     $"\n\tUserName: {user.Name}" +
                                     $"\n\tAction: {user.Action}" +
@@ -351,7 +325,6 @@ namespace EasyJobInfraCode
 
                                 ExecutionUtils.ExecutionOptionVerbose($"\nWait step data from yaml: " +
                                     $"\n\tActionType: {wait.ActionType}" +
-                                    $"\n\tActionName: {wait.ActionName}" +
                                     $"\n\tActionDescription: {wait.ActionDescription}" +
                                     $"\n\tMilliseconds: {wait.Milliseconds}");
 
