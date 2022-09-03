@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
 using CliWrap;
 using EasyJobInfraCode.Core.Argprocessor;
 using EasyJobInfraCode.Core.Preprocessor.Utils;
@@ -18,6 +20,8 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
         public List<object> Credentials { get; set; } = new List<object> { };
         public string WorkingDirectory { get; set; } = Constants.ENV_SYSTEM_DIRECTORY;
         public string PowerShellExecutable { get; set; } = Constants.ENV_SYSTEM_DIRECTORY + "\\WindowsPowerShell\\v1.0\\powershell.exe";
+        public string OutBuffer { get; set; } = "";
+        public string ErrBuffer { get; set; } = "";
         public string ExactVariableCheck { get; set; } = "false";
         public string CheckFileArgumentsForVariables { get; set; } = "false";
 
@@ -44,27 +48,39 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
                     }
                 }
 
+                var stdOutBuffer = new StringBuilder();
+                var stdErrBuffer = new StringBuilder();
+
                 if (Credentials.Count == 3)
                 {
                     ExecutionUtils.ExecutionOptionVerbose("Starting: \"" + PowerShellExecutable + "\" " + PowerShellArguments + " -File \"" + FileName + "\" " + fileArgumentsData + " with Credentials: " + ListUtil.ConvertListToString(Credentials, "'", ", ") + "\n");
 
-                    await Cli.Wrap(PowerShellExecutable)
+                    var result = Cli.Wrap(PowerShellExecutable)
                         .WithArguments(PowerShellArguments + " -File \"" + FileName + "\" " + fileArgumentsData)
                         .WithWorkingDirectory(WorkingDirectory)
                         .WithValidation(CommandResultValidation.None)
-                        .WithCredentials(new Credentials(Credentials[0].ToString(), Credentials[1].ToString(), Credentials[2].ToString()))
-                        .ExecuteAsync();
+                        .WithStandardOutputPipe(PipeTarget.ToStringBuilder(stdOutBuffer))
+                        .WithStandardErrorPipe(PipeTarget.ToStringBuilder(stdErrBuffer))
+                        .WithCredentials(new Credentials(Credentials[0].ToString(), Credentials[1].ToString(), Credentials[2].ToString()));
+
+                    Task.WaitAll(result.ExecuteAsync());
                 }
                 else
                 {
                     ExecutionUtils.ExecutionOptionVerbose("Starting: \"" + PowerShellExecutable + "\" " + PowerShellArguments + " -File \"" + FileName + "\" " + fileArgumentsData + "\n");
 
-                    await Cli.Wrap(PowerShellExecutable)
+                    var result = Cli.Wrap(PowerShellExecutable)
                         .WithArguments(PowerShellArguments + " -File \"" + FileName + "\" " + fileArgumentsData)
                         .WithWorkingDirectory(WorkingDirectory)
-                        .WithValidation(CommandResultValidation.None)
-                        .ExecuteAsync();
+                        .WithStandardOutputPipe(PipeTarget.ToStringBuilder(stdOutBuffer))
+                        .WithStandardErrorPipe(PipeTarget.ToStringBuilder(stdErrBuffer))
+                        .WithValidation(CommandResultValidation.None);
+
+                    Task.WaitAll(result.ExecuteAsync());
                 }
+
+                OutBuffer = stdOutBuffer.ToString();
+                ErrBuffer = stdErrBuffer.ToString();
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
         }

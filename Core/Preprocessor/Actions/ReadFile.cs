@@ -12,7 +12,7 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
         public string ActionName { get; set; }
         public string ActionDescription { get; set; } = "";
         public string FileName { get; set; }
-        public List<object> SetToVariables { get; set; } = new List<object> { };
+        public string Out { get; set; } = "";
         public string ExactVariableCheck { get; set; } = "false";
 
         public void InvokeAction()
@@ -32,16 +32,8 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
                 string data = File.ReadAllText(FileName);
 
                 ExecutionUtils.ExecutionOptionVerbose("File \"" + FileName + "\" was read to memory.");
-
-                if (SetToVariables.Count > 0)
-                {
-                    foreach (object outVar in SetToVariables)
-                    {
-                        EasyJobInfraCode.VariableProcessorInstance.SetVariableValue(outVar.ToString(), data);
-                        ExecutionUtils.ExecutionOptionVerbose("Data was set to \"" + outVar.ToString() + "\" variable.");
-                    }
-                }
-
+                EasyJobInfraCode.VariableProcessorInstance.SetValuesToVariables(Out, data.ToString(), bool.Parse(ExactVariableCheck));
+                Out = data;
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
         }

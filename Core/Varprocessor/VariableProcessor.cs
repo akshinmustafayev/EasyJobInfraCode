@@ -95,5 +95,32 @@ namespace EasyJobInfraCode.Core.Varprocessor
 
             return text;
         }
+
+        public void SetValuesToVariables(string text, string value, bool exactVariableCheck)
+        {
+            foreach (KeyValuePair<string, string> variable in Variables)
+            {
+                if (exactVariableCheck)
+                {
+                    if (text.Split().Contains(variable.Key))
+                    {
+                        if (Variables.ContainsKey(variable.Key))
+                        {
+                            Variables[variable.Key] = value;
+                        }
+                    }
+                }
+                else
+                {
+                    if (text.Contains(variable.Key))
+                    {
+                        if (Variables.ContainsKey(variable.Key))
+                        {
+                            Variables[variable.Key] = value;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
