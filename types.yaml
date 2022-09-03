@@ -80,7 +80,7 @@ Steps:
     ActionName: readFile1
     ActionDescription: Read file contents
     FileName: D:\1.txt
-    SetToVariables: [ "$var1", "$var2" ]
+    Out: $var1
     ExactVariableCheck: false
 
   - ActionType: RenameFile
@@ -113,6 +113,8 @@ Steps:
     Credentials: [ "domain.lan", "login", "password" ]
     WorkingDirectory: C:\Windows\System32
     PowerShellExecutable: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+    OutBuffer: $var1
+    ErrBuffer: $var2
     ExactVariableCheck: false
     CheckFileArgumentsForVariables: false
 
@@ -131,6 +133,8 @@ Steps:
     Credentials: [ "domain.lan", "login", "password" ]
     WorkingDirectory: C:\Windows\System32
     PowerShellExecutable: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+    OutBuffer: $var1
+    ErrBuffer: $var2
     ExactVariableCheck: false
     CheckScriptArgumentsForVariables: false
 
@@ -143,8 +147,9 @@ Steps:
   - ActionType: SetVariableValue
     ActionName: setVariableValue1
     ActionDescription: Sets value to variable
-    Variables: [ "$var1", "$var2" ]
+    Variable: $var1, $var2
     Value: some value
+    ExactVariableCheckFromVariable: false
     ExactVariableCheckFromValue: false
 
   - ActionType: Service

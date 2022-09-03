@@ -77,7 +77,6 @@ namespace EasyJobInfraCode
 
                     switch (actionType.ToString())
                     {
-
                         case "CleanFolderContents":
                             {
                                 CleanFolderContents cleanFolderContents = Step.ToObject<CleanFolderContents>();
@@ -266,7 +265,7 @@ namespace EasyJobInfraCode
                                     $"\n\tActionName: {readFile.ActionName}" +
                                     $"\n\tActionDescription: {readFile.ActionDescription}" +
                                     $"\n\tFileName: {readFile.FileName}" +
-                                    $"\n\tSetToVariables: {ListUtil.ConvertListToString(readFile.SetToVariables, "\"", ", ")}");
+                                    $"\n\tSetToVariables: {readFile.Out}");
 
                                 readFile.InvokeAction();
                             }
@@ -323,7 +322,7 @@ namespace EasyJobInfraCode
                                     $"\n\tActionType: {setVariableValue.ActionType}" +
                                     $"\n\tActionName: {setVariableValue.ActionName}" +
                                     $"\n\tActionDescription: {setVariableValue.ActionDescription}" +
-                                    $"\n\tVariables: {ListUtil.ConvertListToString(setVariableValue.Variables)}" +
+                                    $"\n\tVariables: {setVariableValue.Variable}" +
                                     $"\n\tValue: {setVariableValue.Value}");
 
                                 setVariableValue.InvokeAction();
