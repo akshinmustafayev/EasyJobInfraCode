@@ -1,0 +1,172 @@
+﻿Name: AutomationWorkflow1
+Description: Some automation workflow yaml file
+Author: Akshin Mustafayev
+Url: https://akshinmustafayev.com
+Version: 1.0
+Copyrigth: Akshin Mustafayev
+Variables: [ "$var1", "$var2" ]
+Steps:
+  - ActionType: CopyFile
+    ActionName: copyFile1to2
+    ActionDescription: Copies file 1 to 2
+    FileSource: D:\1.txt
+    FileDestination: D:\2.txt
+    Overwrite: true
+    ExactVariableCheck: false
+
+  - ActionType: CopyFolder
+    ActionName: copyFolder1
+    ActionDescription: Copies folder
+    FolderSource: D:\somefolder1
+    FolderDestination: D:\somefolder2
+    Overwrite: true
+    ExactVariableCheck: false
+
+  - ActionType: CreateFile
+    ActionName: createFile1
+    ActionDescription: Creates a file with specified content
+    Name: D:\new_file.txt
+    Content: "some content \n
+    sdfsdfsdfsdfsdfsdfsdf \n
+    sdfsdfsdgfdsfgfdgsfdgdsfgsfdgdsfg $var1"
+    Encoding: ASCII (or UTF8, UTF32, Latin1, BigEndianUnicode)
+    Append: true
+    ExactVariableCheck: false
+
+  - ActionType: CreateFolder
+    ActionName: createFolder1
+    ActionDescription: Creates folder
+    FolderName: D:\somefolder1
+    ExactVariableCheck: false
+
+  - ActionType: Debug
+    ActionName: debugLog1
+    ActionDescription: Shows debug message
+    Destination: console (or file)
+    File: D:\file.txt
+    Append: true
+    Message: some message to show
+    Encoding: ASCII (or UTF8, UTF32, Latin1, BigEndianUnicode)
+    ExactVariableCheck: false
+
+  - ActionType: DeleteFile
+    ActionName: deleteFile
+    ActionDescription: Deletes file 2
+    FileName: D:\2.txt
+    ExactVariableCheck: false
+
+  - ActionType: DeleteFolder
+    ActionName: deletefolder1
+    ActionDescription: Deletes the specified folder
+    FolderName: D:\somefolder1
+    ExactVariableCheck: false
+
+  - ActionType: MoveFile
+    ActionName: moveFile
+    ActionDescription: Moves file from one place to another
+    FileSource: D:\1.txt
+    FileDestination: D:\2.txt
+    Overwrite: true
+    ExactVariableCheck: false
+    
+  - ActionType: MoveFolder
+    ActionName: moveFolder1
+    ActionDescription: Moves folder
+    FolderSource: D:\somefolder1
+    FolderDestination: D:\somefolder2
+    ExactVariableCheck: false
+
+  - ActionType: ReadFile
+    ActionName: readFile1
+    ActionDescription: Read file contents
+    FileName: D:\1.txt
+    Out: $var1
+    ExactVariableCheck: false
+
+  - ActionType: RenameFile
+    ActionName: renameFile
+    ActionDescription: Renames file
+    FileName: D:\1.txt
+    NewFileName: D:\2.txt
+    Overwrite: true
+    ExactVariableCheck: false
+
+  - ActionType: RenameFolder
+    ActionName: renameFolder1
+    ActionDescription: Renames folder
+    FolderName: D:\somefolder1
+    NewFolderName: D:\somefolder2
+    ExactVariableCheck: false
+
+  - ActionType: Wait
+    ActionName: wait1
+    ActionDescription: Blocks thread for the given amount of time
+    Milliseconds: 5000
+    ExactVariableCheck: false
+
+  - ActionType: InvokePowerShellScriptFile
+    ActionName: runMyPsScriptFile1
+    ActionDescription: Executes specified powershell script
+    FileName: D:\1.ps1
+    FileArguments: [ "some argument 1", "some argument 2" ]
+    PowerShellArguments: -NoLogo
+    Credentials: [ "domain.lan", "login", "password" ]
+    WorkingDirectory: C:\Windows\System32
+    PowerShellExecutable: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+    OutBuffer: $var1
+    ErrBuffer: $var2
+    ExactVariableCheck: false
+    CheckFileArgumentsForVariables: false
+
+  - ActionType: InvokePowerShellScript
+    ActionName: runMyScript1
+    ActionDescription: Executes specified powershell code
+    Script: |
+        $arg1 = $args[0]
+        $arg2 = $args[1]
+        "" | out-file -Force -FilePath "D:\bbbb.txt"
+        "Begin file" | out-file -Force -FilePath "D:\bbbb.txt" -Append
+        "new line arg1 $arg1  " | out-file -Force -FilePath "D:\bbbb.txt" -Append
+        "new line arg2 $arg2  " | out-file -Force -FilePath "D:\bbbb.txt" -Append
+    ScriptArguments: [ "b argument 1", "b argument 2" ]
+    PowerShellArguments: -NoLogo
+    Credentials: [ "domain.lan", "login", "password" ]
+    WorkingDirectory: C:\Windows\System32
+    PowerShellExecutable: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+    OutBuffer: $var1
+    ErrBuffer: $var2
+    ExactVariableCheck: false
+    CheckScriptArgumentsForVariables: false
+
+  - ActionType: CleanFolderContents
+    ActionName: cleanFolderContents1
+    ActionDescription: Cleans all files and folders in directory
+    FolderName: D:\somefolder1
+    ExactVariableCheck: false
+
+  - ActionType: SetVariableValue
+    ActionName: setVariableValue1
+    ActionDescription: Sets value to variable
+    Variable: $var1, $var2
+    Value: some value
+    ExactVariableCheckFromVariable: false
+    ExactVariableCheckFromValue: false
+
+  - ActionType: Service
+    ActionName: service1Action
+    ActionDescription: Performs action with service
+    Name: service name
+    Action: Start (or Stop, Pause, Continue, Executecommand)
+    Command: 128 (between 128 - 256)
+    ExactVariableCheck: false
+
+  - ActionType: User
+    ActionName: actionWithUser
+    ActionDescription: Performs action with user
+    UserName: john01
+    Action: create
+    Password: A123456a!!
+    Description: user for finance dept
+    Groups: [ "Guests", "Users" ]
+    ExactVariableCheck: false
+
