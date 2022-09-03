@@ -56,5 +56,28 @@ Steps:
     Action: Start
 ```
 
+## :electric_plug: Usage
+EJIC can accept the following arguments
+```
+  -f, --file       Required. Set file to process.
+
+  -c, --cleanup    Required. Cleanup temp folder.
+
+  -v, --verbose    Set output to verbose messages.
+
+  --help           Display this help screen.
+
+  --version        Display version information.
+```
+
+To execute yaml playbook write
+```
+EasyJobInfraCode.exe -f "D:\path\to\yaml\playbook.yaml"
+```
+
+to see verbose output write
+```
+EasyJobInfraCode.exe -f "D:\path\to\yaml\playbook.yaml" -v
+```
 
 <img src="assets/footer.svg"/>
