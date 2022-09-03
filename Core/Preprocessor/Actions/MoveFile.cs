@@ -8,7 +8,6 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
     public class MoveFile : IAction
     {
         public string ActionType { get; set; }
-        public string ActionName { get; set; }
         public string ActionDescription { get; set; } = "";
         public string FileSource { get; set; }
         public string FileDestination { get; set; }

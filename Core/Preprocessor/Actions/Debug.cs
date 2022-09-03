@@ -7,7 +7,6 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
     public class Debug : IAction
     {
         public string ActionType { get; set; }
-        public string ActionName { get; set; }
         public string ActionDescription { get; set; } = "";
         public string Destination { get; set; } = "console";
         public string File { get; set; } = "";

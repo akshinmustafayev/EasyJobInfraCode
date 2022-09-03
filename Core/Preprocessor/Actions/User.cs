@@ -9,7 +9,6 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
     public class User : IAction
     {
         public string ActionType { get; set; }
-        public string ActionName { get; set; }
         public string ActionDescription { get; set; } = "";
         public string Name { get; set; }
         public string Action { get; set; }

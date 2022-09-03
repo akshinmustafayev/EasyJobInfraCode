@@ -8,7 +8,6 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
     public class SetVariableValue : IAction
     {
         public string ActionType { get; set; }
-        public string ActionName { get; set; }
         public string ActionDescription { get; set; } = "";
         public string Variable { get; set; } = "";
         public string Value { get; set; } = "";

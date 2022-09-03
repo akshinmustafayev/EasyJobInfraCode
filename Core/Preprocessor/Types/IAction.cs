@@ -7,7 +7,6 @@ namespace EasyJobInfraCode.Core.Types
     interface IAction
     {
         public string ActionType { get; set; }
-        public string ActionName { get; set; }
         public string ActionDescription { get; set; }
         public void InvokeAction();
 

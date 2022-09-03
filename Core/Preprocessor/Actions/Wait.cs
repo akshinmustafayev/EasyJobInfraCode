@@ -8,7 +8,6 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
     public class Wait : IAction
     {
         public string ActionType { get; set; }
-        public string ActionName { get; set; }
         public string ActionDescription { get; set; } = "";
         public string Milliseconds { get; set; }
         public string ExactVariableCheck { get; set; } = "false";
