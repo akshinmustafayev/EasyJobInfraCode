@@ -3,7 +3,7 @@ Description: Some automation workflow yaml file
 Author: Akshin Mustafayev
 Url: https://akshinmustafayev.com
 Version: 1.0
-Copyrigth: Akshin Mustafayev
+Copyright: Akshin Mustafayev
 Variables: [ "$var1", "$var2" ]
 Steps:
   - ActionType: CopyFile
