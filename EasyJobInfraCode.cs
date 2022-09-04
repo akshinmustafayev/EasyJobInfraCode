@@ -54,7 +54,7 @@ namespace EasyJobInfraCode
                     "\tAuthor: " + yamlWorkflow.Author + "\n" +
                     "\tUrl: " + yamlWorkflow.Url + "\n" +
                     "\tVersion: " + yamlWorkflow.Version + "\n" +
-                    "\tCopyrigth: " + yamlWorkflow.Copyrigth + "\n" +
+                    "\tCopyrigth: " + yamlWorkflow.Copyright + "\n" +
                     "\tVariables: " + ListUtil.ConvertListToString(yamlWorkflow.Variables, "\"", ", ") + "\n\n");
                 Console.WriteLine("################### Steps! ####################\n");
                 VerboseEnabled = true;
