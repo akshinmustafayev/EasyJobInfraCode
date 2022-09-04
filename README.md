@@ -73,7 +73,7 @@ EJIC can accept the following arguments
   --version        Display version information.
 ```
 
-To execute yaml playbook write
+To execute yaml playbook open Command Promt and write
 ```
 EasyJobInfraCode.exe -f "D:\path\to\yaml\playbook.yaml"
 ```
