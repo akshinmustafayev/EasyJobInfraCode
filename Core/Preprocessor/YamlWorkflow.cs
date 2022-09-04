@@ -10,7 +10,7 @@ namespace EasyJobInfraCode.Core.Preprocessor
         public string Author { get; set; } = "";
         public string Url { get; set; } = "";
         public string Version { get; set; } = "1.0";
-        public string Copyrigth { get; set; } = "";
+        public string Copyright { get; set; } = "";
         public List<object> Variables { get; set; } = new List<object> { };
         public List<Dictionary<string, object>> Steps { get; set; }
     }
