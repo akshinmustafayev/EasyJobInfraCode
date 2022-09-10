@@ -3,6 +3,14 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
+	<Version>0.0.0.3</Version>
+	<AssemblyVersion>0.0.0.3</AssemblyVersion>
+    <FileVersion>0.0.0.3</FileVersion>
+	<Company>EasyJob</Company>
+	<Authors>Akshin Mustafayev</Authors>
+	<Copyright>Akshin Mustafayev</Copyright>
+	<Product>EasyJob InfraCode</Product>
+	<Description>Perform administrative tasks using yaml playbooks</Description>
     <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
 
