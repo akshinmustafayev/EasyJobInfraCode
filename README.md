@@ -26,6 +26,9 @@
 <img src="assets/overview_1.png"/> 
 <img src="assets/overview2.png"/> 
 
+## :bulb: Requirements
+[.NET 6 runtime](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) must be installed
+
 ## :page_with_curl: Examples
 ```yaml
 Name: Automation Workflow Example 1
