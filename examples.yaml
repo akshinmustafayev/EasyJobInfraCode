@@ -6,6 +6,11 @@ Version: 1.0
 Copyright: Akshin Mustafayev
 Variables: [ "$var1", "$var2" ]
 Steps:
+  - ActionType: CleanFolderContents
+    ActionDescription: Cleans all files and folders in directory
+    FolderName: D:\somefolder1
+    ExactVariableCheck: false
+
   - ActionType: CopyFile
     ActionDescription: Copies file 1 to 2
     FileSource: D:\1.txt
@@ -54,6 +59,38 @@ Steps:
     FolderName: D:\somefolder1
     ExactVariableCheck: false
 
+  - ActionType: InvokePowerShellScript
+    ActionDescription: Executes specified powershell code
+    Script: |
+        $arg1 = $args[0]
+        $arg2 = $args[1]
+        "" | out-file -Force -FilePath "D:\bbbb.txt"
+        "Begin file" | out-file -Force -FilePath "D:\bbbb.txt" -Append
+        "new line arg1 $arg1  " | out-file -Force -FilePath "D:\bbbb.txt" -Append
+        "new line arg2 $arg2  " | out-file -Force -FilePath "D:\bbbb.txt" -Append
+    ScriptArguments: [ "b argument 1", "b argument 2" ]
+    PowerShellArguments: -NoLogo
+    Credentials: [ "domain.lan", "login", "password" ]
+    WorkingDirectory: C:\Windows\System32
+    PowerShellExecutable: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+    OutBuffer: $var1
+    ErrBuffer: $var2
+    ExactVariableCheck: false
+    CheckScriptArgumentsForVariables: false
+
+  - ActionType: InvokePowerShellScriptFile
+    ActionDescription: Executes specified powershell script
+    FileName: D:\1.ps1
+    FileArguments: [ "some argument 1", "some argument 2" ]
+    PowerShellArguments: -NoLogo
+    Credentials: [ "domain.lan", "login", "password" ]
+    WorkingDirectory: C:\Windows\System32
+    PowerShellExecutable: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+    OutBuffer: $var1
+    ErrBuffer: $var2
+    ExactVariableCheck: false
+    CheckFileArgumentsForVariables: false
+
   - ActionType: MoveFile
     ActionDescription: Moves file from one place to another
     FileSource: D:\1.txt
@@ -86,46 +123,22 @@ Steps:
     NewFolderName: D:\somefolder2
     ExactVariableCheck: false
 
-  - ActionType: Wait
-    ActionDescription: Blocks thread for the given amount of time
-    Milliseconds: 5000
-    ExactVariableCheck: false
-
-  - ActionType: InvokePowerShellScriptFile
-    ActionDescription: Executes specified powershell script
-    FileName: D:\1.ps1
-    FileArguments: [ "some argument 1", "some argument 2" ]
-    PowerShellArguments: -NoLogo
+  - ActionType: RunExecutable
+    ActionDescription: Executes specified executable
+    Executable: D:\myapp\bin\app.exe
+    Arguments: [ "some argument 1", "some argument 2" ]
     Credentials: [ "domain.lan", "login", "password" ]
     WorkingDirectory: C:\Windows\System32
-    PowerShellExecutable: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
     OutBuffer: $var1
     ErrBuffer: $var2
     ExactVariableCheck: false
-    CheckFileArgumentsForVariables: false
+    CheckArgumentsForVariables: false
 
-  - ActionType: InvokePowerShellScript
-    ActionDescription: Executes specified powershell code
-    Script: |
-        $arg1 = $args[0]
-        $arg2 = $args[1]
-        "" | out-file -Force -FilePath "D:\bbbb.txt"
-        "Begin file" | out-file -Force -FilePath "D:\bbbb.txt" -Append
-        "new line arg1 $arg1  " | out-file -Force -FilePath "D:\bbbb.txt" -Append
-        "new line arg2 $arg2  " | out-file -Force -FilePath "D:\bbbb.txt" -Append
-    ScriptArguments: [ "b argument 1", "b argument 2" ]
-    PowerShellArguments: -NoLogo
-    Credentials: [ "domain.lan", "login", "password" ]
-    WorkingDirectory: C:\Windows\System32
-    PowerShellExecutable: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
-    OutBuffer: $var1
-    ErrBuffer: $var2
-    ExactVariableCheck: false
-    CheckScriptArgumentsForVariables: false
-
-  - ActionType: CleanFolderContents
-    ActionDescription: Cleans all files and folders in directory
-    FolderName: D:\somefolder1
+ - ActionType: Service
+    ActionDescription: Performs action with service
+    Name: service name
+    Action: Start (or Stop, Pause, Continue, Executecommand)
+    Command: 128 (between 128 - 256)
     ExactVariableCheck: false
 
   - ActionType: SetVariableValue
@@ -135,13 +148,6 @@ Steps:
     ExactVariableCheckFromVariable: false
     ExactVariableCheckFromValue: false
 
-  - ActionType: Service
-    ActionDescription: Performs action with service
-    Name: service name
-    Action: Start (or Stop, Pause, Continue, Executecommand)
-    Command: 128 (between 128 - 256)
-    ExactVariableCheck: false
-
   - ActionType: User
     ActionDescription: Performs action with user
     UserName: john01
@@ -150,4 +156,16 @@ Steps:
     Description: user for finance dept
     Groups: [ "Guests", "Users" ]
     ExactVariableCheck: false
+
+  - ActionType: Wait
+    ActionDescription: Blocks thread for the given amount of time
+    Milliseconds: 5000
+    ExactVariableCheck: false
+
+
+
+
+
+
+
 

@@ -276,6 +276,21 @@ namespace EasyJobInfraCode
                                 renameFolder.InvokeAction();
                             }
                             break;
+                        case "RunExecutable":
+                            {
+                                RunExecutable runExecutable = Step.ToObject<RunExecutable>();
+
+                                ExecutionUtils.ExecutionOptionVerbose($"\nRunExecutable step data from yaml: " +
+                                    $"\n\tActionType: {runExecutable.ActionType}" +
+                                    $"\n\tActionDescription: {runExecutable.ActionDescription}" +
+                                    $"\n\tExecutable: {runExecutable.Executable}" +
+                                    $"\n\tArguments: {ListUtil.ConvertListToString(runExecutable.Arguments)}" +
+                                    $"\n\tCredentials: {ListUtil.ConvertListToString(runExecutable.Credentials)}" +
+                                    $"\n\tWorkingDirectory: {runExecutable.WorkingDirectory}");
+
+                                runExecutable.InvokeAction();
+                            }
+                            break;
                         case "Service":
                             {
                                 Service service = Step.ToObject<Service>();
