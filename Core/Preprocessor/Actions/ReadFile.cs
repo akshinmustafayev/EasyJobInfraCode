@@ -31,7 +31,9 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
                 string data = File.ReadAllText(FileName);
 
                 ExecutionUtils.ExecutionOptionVerbose("File \"" + FileName + "\" was read to memory.");
+
                 EasyJobInfraCode.VariableProcessorInstance.SetValuesToVariables(Out, data.ToString(), bool.Parse(ExactVariableCheck));
+
                 Out = data;
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }

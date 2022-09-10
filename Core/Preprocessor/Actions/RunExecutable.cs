@@ -9,39 +9,35 @@ using EasyJobInfraCode.Core.Types;
 
 namespace EasyJobInfraCode.Core.Preprocessor.Actions
 {
-    public class InvokePowerShellScriptFile : IAction
+    public class RunExecutable : IAction
     {
         public string ActionType { get; set; }
         public string ActionDescription { get; set; } = "";
-        public string FileName { get; set; }
-        public List<object> FileArguments { get; set; } = new List<object> { };
-        public string PowerShellArguments { get; set; } = "";
+        public string Executable { get; set; }
+        public List<object> Arguments { get; set; } = new List<object> { };
         public List<object> Credentials { get; set; } = new List<object> { };
         public string WorkingDirectory { get; set; } = Constants.ENV_SYSTEM_DIRECTORY;
-        public string PowerShellExecutable { get; set; } = Constants.ENV_SYSTEM_DIRECTORY + "\\WindowsPowerShell\\v1.0\\powershell.exe";
         public string OutBuffer { get; set; } = "";
         public string ErrBuffer { get; set; } = "";
         public string ExactVariableCheck { get; set; } = "false";
-        public string CheckFileArgumentsForVariables { get; set; } = "false";
+        public string CheckArgumentsForVariables { get; set; } = "false";
 
         public async void InvokeAction()
         {
             try
             {
                 // Variables actions
-                FileName = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(FileName, bool.Parse(ExactVariableCheck));
-                PowerShellArguments = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(PowerShellArguments, bool.Parse(ExactVariableCheck));
+                Executable = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Executable, bool.Parse(ExactVariableCheck));
                 WorkingDirectory = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(WorkingDirectory, bool.Parse(ExactVariableCheck));
-                PowerShellExecutable = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(PowerShellExecutable, bool.Parse(ExactVariableCheck));
-
+                
                 // Main Action
                 string fileArgumentsData = "";
 
-                if(FileArguments.Count > 0)
+                if (Arguments.Count > 0)
                 {
-                    fileArgumentsData = ListUtil.ConvertListToString(FileArguments);
+                    fileArgumentsData = ListUtil.ConvertListToString(Arguments);
 
-                    if (bool.Parse(CheckFileArgumentsForVariables))
+                    if (bool.Parse(CheckArgumentsForVariables))
                     {
                         fileArgumentsData = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(fileArgumentsData, bool.Parse(ExactVariableCheck));
                     }
@@ -52,10 +48,10 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
 
                 if (Credentials.Count == 3)
                 {
-                    ExecutionUtils.ExecutionOptionVerbose("Starting: \"" + PowerShellExecutable + "\" " + PowerShellArguments + " -File \"" + FileName + "\" " + fileArgumentsData + " with Credentials: " + ListUtil.ConvertListToString(Credentials, "'", ", ") + "\n");
+                    ExecutionUtils.ExecutionOptionVerbose("Starting: \"" + Executable + "\" " + fileArgumentsData + " with Credentials: " + ListUtil.ConvertListToString(Credentials, "'", ", ") + "\n");
 
-                    var result = Cli.Wrap(PowerShellExecutable)
-                        .WithArguments(PowerShellArguments + " -File \"" + FileName + "\" " + fileArgumentsData)
+                    var result = Cli.Wrap(Executable)
+                        .WithArguments(fileArgumentsData)
                         .WithWorkingDirectory(WorkingDirectory)
                         .WithValidation(CommandResultValidation.None)
                         .WithStandardOutputPipe(PipeTarget.ToStringBuilder(stdOutBuffer))
@@ -66,10 +62,10 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
                 }
                 else
                 {
-                    ExecutionUtils.ExecutionOptionVerbose("Starting: \"" + PowerShellExecutable + "\" " + PowerShellArguments + " -File \"" + FileName + "\" " + fileArgumentsData + "\n");
+                    ExecutionUtils.ExecutionOptionVerbose("Starting: \"" + Executable + "\" " + fileArgumentsData + " with Credentials: " + ListUtil.ConvertListToString(Credentials, "'", ", ") + "\n");
 
-                    var result = Cli.Wrap(PowerShellExecutable)
-                        .WithArguments(PowerShellArguments + " -File \"" + FileName + "\" " + fileArgumentsData)
+                    var result = Cli.Wrap(Executable)
+                        .WithArguments(fileArgumentsData)
                         .WithWorkingDirectory(WorkingDirectory)
                         .WithStandardOutputPipe(PipeTarget.ToStringBuilder(stdOutBuffer))
                         .WithStandardErrorPipe(PipeTarget.ToStringBuilder(stdErrBuffer))
