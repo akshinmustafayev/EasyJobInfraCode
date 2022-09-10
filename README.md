@@ -84,7 +84,7 @@ EasyJobInfraCode.exe -f "D:\path\to\yaml\playbook.yaml"
 
 to see verbose output write
 ```
-EasyJobInfraCode.exe -f "D:\path\to\yaml\playbook.yaml" -v
+EasyJobInfraCode.exe -v -f "D:\path\to\yaml\playbook.yaml"
 ```
 
 ## :electric_plug: Compilation
