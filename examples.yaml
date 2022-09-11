@@ -4,7 +4,7 @@ Author: Akshin Mustafayev
 Url: https://akshinmustafayev.com
 Version: 1.0
 Copyright: Akshin Mustafayev
-Variables: [ "$var1", "$var2" ]
+Variables: $var1, $var2
 Steps:
   - ActionType: CleanFolderContents
     ActionDescription: Cleans all files and folders in directory
@@ -29,8 +29,8 @@ Steps:
     ActionDescription: Creates a file with specified content
     Name: D:\new_file.txt
     Content: "some content \n
-    sdfsdfsdfsdfsdfsdfsdf \n
-    sdfsdfsdgfdsfgfdgsfdgdsfgsfdgdsfg $var1"
+        sdfsdfsdfsdfsdfsdfsdf \n
+        sdfsdfsdgfdsfgfdgsfdgdsfgsfdgdsfg $var1"
     Encoding: ASCII (or UTF8, UTF32, Latin1, BigEndianUnicode)
     Append: true
     ExactVariableCheck: false
@@ -134,10 +134,10 @@ Steps:
     ExactVariableCheck: false
     CheckArgumentsForVariables: false
 
- - ActionType: Service
+  - ActionType: Service
     ActionDescription: Performs action with service
     Name: service name
-    Action: Start (or Stop, Pause, Continue, Executecommand)
+    Action: Start (or Stop, Restart, Pause, Continue, ExecuteCommand)
     Command: 128 (between 128 - 256)
     ExactVariableCheck: false
 
