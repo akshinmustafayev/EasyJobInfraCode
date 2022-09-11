@@ -20,7 +20,7 @@
 ---
 
 ## :newspaper: Description
-<img src="assets/logo.png" height="20" width="20"/> EasyJobInfraCode - is a Lightweight automation tool, performs administrative tasks using __yaml__ playbooks. Check [wiki](https://github.com/akshinmustafayev/EasyJobInfraCode/wiki) for the help and documentation.
+<img src="assets/logo.png" height="20" width="20"/> EasyJobInfraCode - is a Lightweight automation tool, performs administrative tasks using __yaml__ playbooks. Check [wiki](https://github.com/akshinmustafayev/EasyJobInfraCode/wiki) for the help and documentation. To download the latest version go to the [release](https://github.com/akshinmustafayev/EasyJobInfraCode/releases) page.
 
 ## :eye_speech_bubble: Overview
 <img src="assets/overview_1.png"/> 
