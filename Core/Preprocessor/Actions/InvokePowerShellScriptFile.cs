@@ -29,10 +29,10 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
             try
             {
                 // Variables actions
-                FileName = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(FileName, bool.Parse(ExactVariableCheck));
-                PowerShellArguments = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(PowerShellArguments, bool.Parse(ExactVariableCheck));
-                WorkingDirectory = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(WorkingDirectory, bool.Parse(ExactVariableCheck));
-                PowerShellExecutable = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(PowerShellExecutable, bool.Parse(ExactVariableCheck));
+                FileName = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(FileName, bool.Parse(ExactVariableCheck)).GetTextValue();
+                PowerShellArguments = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(PowerShellArguments, bool.Parse(ExactVariableCheck)).GetTextValue();
+                WorkingDirectory = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(WorkingDirectory, bool.Parse(ExactVariableCheck)).GetTextValue();
+                PowerShellExecutable = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(PowerShellExecutable, bool.Parse(ExactVariableCheck)).GetTextValue();
 
                 // Main Action
                 string fileArgumentsData = "";
@@ -43,7 +43,7 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
 
                     if (bool.Parse(CheckFileArgumentsForVariables))
                     {
-                        fileArgumentsData = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(fileArgumentsData, bool.Parse(ExactVariableCheck));
+                        fileArgumentsData = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(fileArgumentsData, bool.Parse(ExactVariableCheck)).GetTextValue();
                     }
                 }
 

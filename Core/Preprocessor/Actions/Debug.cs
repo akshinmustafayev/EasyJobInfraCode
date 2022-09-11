@@ -20,11 +20,11 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
             try
             {
                 // Variables actions
-                Destination = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Destination, bool.Parse(ExactVariableCheck));
-                File = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(File, bool.Parse(ExactVariableCheck));
-                Append = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Append, bool.Parse(ExactVariableCheck));
-                Message = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Message, bool.Parse(ExactVariableCheck));
-                Encoding = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Encoding, bool.Parse(ExactVariableCheck));
+                Destination = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Destination, bool.Parse(ExactVariableCheck)).GetTextValue();
+                File = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(File, bool.Parse(ExactVariableCheck)).GetTextValue();
+                Append = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Append, bool.Parse(ExactVariableCheck)).GetTextValue();
+                Message = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Message, bool.Parse(ExactVariableCheck)).GetTextValue();
+                Encoding = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Encoding, bool.Parse(ExactVariableCheck)).GetTextValue();
 
                 // Main Action
                 string destination = Destination.ToLower();

@@ -19,7 +19,7 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
             try
             {
                 // Main Action
-                Value = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Value, bool.Parse(ExactVariableCheckFromValue));
+                Value = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Value, bool.Parse(ExactVariableCheckFromValue)).GetTextValue();
                 EasyJobInfraCode.VariableProcessorInstance.SetValuesToVariables(Variable, Value, bool.Parse(ExactVariableCheckFromVariable));
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }

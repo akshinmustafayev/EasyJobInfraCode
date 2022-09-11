@@ -30,9 +30,9 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
             try
             {
                 // Variables actions
-                PowerShellArguments = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(PowerShellArguments, bool.Parse(ExactVariableCheck));
-                WorkingDirectory = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(WorkingDirectory, bool.Parse(ExactVariableCheck));
-                PowerShellExecutable = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(PowerShellExecutable, bool.Parse(ExactVariableCheck));
+                PowerShellArguments = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(PowerShellArguments, bool.Parse(ExactVariableCheck)).GetTextValue();
+                WorkingDirectory = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(WorkingDirectory, bool.Parse(ExactVariableCheck)).GetTextValue();
+                PowerShellExecutable = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(PowerShellExecutable, bool.Parse(ExactVariableCheck)).GetTextValue();
 
                 // Main Action
                 string scriptArgumentsData = "";
@@ -45,7 +45,7 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
 
                     if (bool.Parse(CheckScriptArgumentsForVariables))
                     {
-                        scriptArgumentsData = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(scriptArgumentsData, bool.Parse(ExactVariableCheck));
+                        scriptArgumentsData = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(scriptArgumentsData, bool.Parse(ExactVariableCheck)).GetTextValue();
                     }
 
                     if (!Directory.Exists(Constants.APP_TEMP_PATH))

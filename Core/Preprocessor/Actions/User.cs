@@ -22,10 +22,10 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
             try
             {
                 // Variables actions
-                Name = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Name, bool.Parse(ExactVariableCheck));
-                Action = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Action, bool.Parse(ExactVariableCheck));
-                Password = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Password, bool.Parse(ExactVariableCheck));
-                Description = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Description, bool.Parse(ExactVariableCheck));
+                Name = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Name, bool.Parse(ExactVariableCheck)).GetTextValue();
+                Action = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Action, bool.Parse(ExactVariableCheck)).GetTextValue();
+                Password = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Password, bool.Parse(ExactVariableCheck)).GetTextValue();
+                Description = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Description, bool.Parse(ExactVariableCheck)).GetTextValue();
 
                 // Main Action
                 string action = Action.ToLower();
@@ -48,7 +48,7 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
                                 foreach (object Group in Groups)
                                 {
                                     string group = Group.ToString();
-                                    group = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(group, bool.Parse(ExactVariableCheck));
+                                    group = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(group, bool.Parse(ExactVariableCheck)).GetTextValue();
 
                                     DirectoryEntry grp = directoryEntry.Children.Find(group, "group");
                                     if (grp != null) 

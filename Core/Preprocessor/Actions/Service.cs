@@ -19,9 +19,9 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
             try
             {
                 // Variables actions
-                Name = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Name, bool.Parse(ExactVariableCheck));
-                Action = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Action, bool.Parse(ExactVariableCheck));
-                Command = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Command, bool.Parse(ExactVariableCheck));
+                Name = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Name, bool.Parse(ExactVariableCheck)).GetTextValue();
+                Action = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Action, bool.Parse(ExactVariableCheck)).GetTextValue();
+                Command = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Command, bool.Parse(ExactVariableCheck)).GetTextValue();
 
                 // Main Action
                 ServiceController service = new ServiceController(Name);
@@ -50,8 +50,15 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
                         break;
                     case "continue":
                         {
-                            ExecutionUtils.ExecutionOptionVerbose("Continue service: \"" + service.DisplayName + "\"\n");
+                            ExecutionUtils.ExecutionOptionVerbose("Continueing service: \"" + service.DisplayName + "\"\n");
                             service.Continue();
+                        }
+                        break;
+                    case "restart":
+                        {
+                            ExecutionUtils.ExecutionOptionVerbose("Restarting service: \"" + service.DisplayName + "\"\n");
+                            service.Stop();
+                            service.Start();
                         }
                         break;
                     case "executecommand":

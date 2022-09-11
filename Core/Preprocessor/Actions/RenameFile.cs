@@ -19,9 +19,9 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
             try
             {
                 // Variables actions
-                FileName = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(FileName, bool.Parse(ExactVariableCheck));
-                NewFileName = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(NewFileName, bool.Parse(ExactVariableCheck));
-                Overwrite = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Overwrite, bool.Parse(ExactVariableCheck));
+                FileName = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(FileName, bool.Parse(ExactVariableCheck)).GetTextValue();
+                NewFileName = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(NewFileName, bool.Parse(ExactVariableCheck)).GetTextValue();
+                Overwrite = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Overwrite, bool.Parse(ExactVariableCheck)).GetTextValue();
 
                 // Main Action
                 File.Move(FileName, NewFileName, bool.Parse(Overwrite));

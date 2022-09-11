@@ -17,7 +17,7 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
             try
             {
                 // Variables actions
-                Milliseconds = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Milliseconds, bool.Parse(ExactVariableCheck));
+                Milliseconds = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Milliseconds, bool.Parse(ExactVariableCheck)).GetTextValue();
 
                 // Verbose
                 ExecutionUtils.ExecutionOptionVerbose("Waiting for \"" + Milliseconds + "\" milliseconds\n");

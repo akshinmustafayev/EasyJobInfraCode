@@ -27,8 +27,8 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
             try
             {
                 // Variables actions
-                Executable = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Executable, bool.Parse(ExactVariableCheck));
-                WorkingDirectory = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(WorkingDirectory, bool.Parse(ExactVariableCheck));
+                Executable = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Executable, bool.Parse(ExactVariableCheck)).GetTextValue();
+                WorkingDirectory = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(WorkingDirectory, bool.Parse(ExactVariableCheck)).GetTextValue();
                 
                 // Main Action
                 string fileArgumentsData = "";
@@ -39,7 +39,7 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
 
                     if (bool.Parse(CheckArgumentsForVariables))
                     {
-                        fileArgumentsData = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(fileArgumentsData, bool.Parse(ExactVariableCheck));
+                        fileArgumentsData = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(fileArgumentsData, bool.Parse(ExactVariableCheck)).GetTextValue();
                     }
                 }
 

@@ -19,9 +19,9 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
             try
             {
                 // Variables actions
-                FolderSource = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(FolderSource, bool.Parse(ExactVariableCheck));
-                FolderDestination = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(FolderDestination, bool.Parse(ExactVariableCheck));
-                Overwrite = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Overwrite, bool.Parse(ExactVariableCheck));
+                FolderSource = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(FolderSource, bool.Parse(ExactVariableCheck)).GetTextValue();
+                FolderDestination = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(FolderDestination, bool.Parse(ExactVariableCheck)).GetTextValue();
+                Overwrite = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Overwrite, bool.Parse(ExactVariableCheck)).GetTextValue();
 
                 // Main Action
                 CopyDirectory(FolderSource, FolderDestination, bool.Parse(Overwrite));
@@ -51,7 +51,7 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
             if (!Directory.Exists(destinationDir))
             {
                 Directory.CreateDirectory(destinationDir);
-                ExecutionUtils.ExecutionOptionVerbose("Destionation folder \"" + destinationDir + "\" does not exist. Created new folder.");
+                ExecutionUtils.ExecutionOptionVerbose("Destination folder \"" + destinationDir + "\" does not exist. Created new folder.");
             }
 
             // Get the files in the source directory and copy to the destination directory

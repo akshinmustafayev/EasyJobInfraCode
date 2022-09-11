@@ -20,9 +20,9 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
             try
             {
                 // Variables actions
-                Name = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Name, bool.Parse(ExactVariableCheck));
-                Content = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Content, bool.Parse(ExactVariableCheck));
-                Encoding = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Encoding, bool.Parse(ExactVariableCheck));
+                Name = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Name, bool.Parse(ExactVariableCheck)).GetTextValue();
+                Content = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Content, bool.Parse(ExactVariableCheck)).GetTextValue();
+                Encoding = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(Encoding, bool.Parse(ExactVariableCheck)).GetTextValue();
 
                 // Main Action
                 System.Text.Encoding encoding = System.Text.Encoding.ASCII;

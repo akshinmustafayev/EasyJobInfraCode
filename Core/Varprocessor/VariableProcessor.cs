@@ -7,6 +7,8 @@ namespace EasyJobInfraCode.Core.Varprocessor
 {
     public class VariableProcessor
     {
+        private string _tempText = "";
+
         public Dictionary<string, string> Variables { get; set; }
 
         public VariableProcessor()
@@ -30,7 +32,7 @@ namespace EasyJobInfraCode.Core.Varprocessor
         {
             if (Variables.ContainsKey(variableName))
             {
-                Console.WriteLine("Variable \"" + variableName + "\" already exists. Please choose another name for the second variable.");
+                ExecutionUtils.ExecutionOptionVerbose($"Variable {variableName} already exists. Please choose another name for a new variable.");
                 Environment.Exit(0);
                 return;
             }
@@ -47,14 +49,24 @@ namespace EasyJobInfraCode.Core.Varprocessor
             }
         }
 
-        public void InitVariables(List<object> variables)
+        public void InitVariables(string variables)
         {
-            if (variables.Count == 0)
+            if (variables.Length == 0)
                 return;
 
-            foreach (object variable in variables)
+            string[] variablesArray = variables.Split(",");
+
+            foreach (string variable in variablesArray)
             {
-                InitVariable(variable.ToString());
+                string tempVariable = variable.TrimStart(' ').TrimEnd(' ');
+
+                if (tempVariable.Contains(' '))
+                {
+                    ExecutionUtils.ExecutionOptionVerbose("Variable contains space character. Variable must be specified without whice spaces. Example: $varTest1");
+                    continue;
+                }
+
+                InitVariable(tempVariable);
             }
         }
 
@@ -66,6 +78,10 @@ namespace EasyJobInfraCode.Core.Varprocessor
                 {
                     Variables[variableName] = variableValue;
                 }
+                else
+                {
+                    ExecutionUtils.ExecutionOptionVerbose("Specified variable was not found");
+                }
             }
             else
             {
@@ -73,30 +89,37 @@ namespace EasyJobInfraCode.Core.Varprocessor
             }
         }
 
-        public string SetValuesFromVariables(string text, bool exactVariableCheck)
+        public string GetTextValue()
         {
-            foreach (KeyValuePair<string, string> variable in Variables)
-            {
-                if (exactVariableCheck)
-                {
-                    if (text.Split().Contains(variable.Key))
-                    {
-                        text = text.Replace(variable.Key, variable.Value);
-                    }
-                }
-                else
-                {
-                    if (text.Contains(variable.Key))
-                    {
-                        text = text.Replace(variable.Key, variable.Value);
-                    }
-                }
-            }
-
-            return text;
+            return _tempText;
         }
 
-        public void SetValuesToVariables(string text, string value, bool exactVariableCheck)
+        public VariableProcessor SetValuesFromVariables(string text, bool exactVariableCheck)
+        {
+            foreach (KeyValuePair<string, string> variable in Variables)
+            {
+                if (exactVariableCheck)
+                {
+                    if (text.Split().Contains(variable.Key))
+                    {
+                        text = text.Replace(variable.Key, variable.Value);
+                    }
+                }
+                else
+                {
+                    if (text.Contains(variable.Key))
+                    {
+                        text = text.Replace(variable.Key, variable.Value);
+                    }
+                }
+            }
+
+            _tempText = text;
+
+            return this;
+        }
+
+        public VariableProcessor SetValuesToVariables(string text, string value, bool exactVariableCheck)
         {
             foreach (KeyValuePair<string, string> variable in Variables)
             {
@@ -121,6 +144,10 @@ namespace EasyJobInfraCode.Core.Varprocessor
                     }
                 }
             }
+
+            _tempText = text;
+
+            return this;
         }
     }
 }

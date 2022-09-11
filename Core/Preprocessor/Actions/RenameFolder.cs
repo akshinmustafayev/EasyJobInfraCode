@@ -18,8 +18,8 @@ namespace EasyJobInfraCode.Core.Preprocessor.Actions
             try
             {
                 // Variables actions
-                FolderName = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(FolderName, bool.Parse(ExactVariableCheck));
-                NewFolderName = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(NewFolderName, bool.Parse(ExactVariableCheck));
+                FolderName = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(FolderName, bool.Parse(ExactVariableCheck)).GetTextValue();
+                NewFolderName = EasyJobInfraCode.VariableProcessorInstance.SetValuesFromVariables(NewFolderName, bool.Parse(ExactVariableCheck)).GetTextValue();
 
                 // Main Action
                 Directory.Move(FolderName, NewFolderName);
