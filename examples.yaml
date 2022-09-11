@@ -148,15 +148,6 @@ Steps:
     ExactVariableCheckFromVariable: false
     ExactVariableCheckFromValue: false
 
-  - ActionType: User
-    ActionDescription: Performs action with user
-    UserName: john01
-    Action: create
-    Password: A123456a!!
-    Description: user for finance dept
-    Groups: [ "Guests", "Users" ]
-    ExactVariableCheck: false
-
   - ActionType: Wait
     ActionDescription: Blocks thread for the given amount of time
     Milliseconds: 5000

@@ -318,22 +318,6 @@ namespace EasyJobInfraCode
                                 setVariableValue.InvokeAction();
                             }
                             break;
-                        case "User":
-                            {
-                                User user = Step.ToObject<User>();
-
-                                ExecutionUtils.ExecutionOptionVerbose($"\nUser step data from yaml: " +
-                                    $"\n\tActionType: {user.ActionType}" +
-                                    $"\n\tActionDescription: {user.ActionDescription}" +
-                                    $"\n\tUserName: {user.Name}" +
-                                    $"\n\tAction: {user.Action}" +
-                                    $"\n\tPassword: {user.Password}" +
-                                    $"\n\tDescription: {user.Description}" +
-                                    $"\n\tGroups: {ListUtil.ConvertListToString(user.Groups)}");
-
-                                user.InvokeAction();
-                            }
-                            break;
                         case "Wait":
                             {
                                 Wait wait = Step.ToObject<Wait>();
